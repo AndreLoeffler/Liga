@@ -1,0 +1,4 @@
+binaerpiloten_liga:
+    resource: "@BinaerpilotenLigaBundle/Resources/config/routing.yml"
+    prefix:   /
+
