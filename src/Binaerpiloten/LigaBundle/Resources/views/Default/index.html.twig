@@ -1,2 +1,31 @@
-Hello {{ name }}!
-This is my Test!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>The Liga</title> 
+	
+	{% block stylesheets %}
+	<link	href="{{ asset('bundles/binaerpilotenliga/css/css/bootstrap.css') }}"	rel="stylesheet">
+	{% endblock %}
+	
+	{% block javascript %}
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="{{ asset('bundles/binaerpilotenliga/css/js/bootstrap.min.js') }}"></script>
+	{% endblock %}
+</head>
+
+<body>
+	<div class="container">
+		<div class="span4">
+			<div class="well">
+				Hello {{ name }}!<br> This is my Test!
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
