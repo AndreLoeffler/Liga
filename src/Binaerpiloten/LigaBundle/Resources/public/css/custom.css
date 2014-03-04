@@ -1,0 +1,8 @@
+.btn-group.open .dropdown-menu {
+	display: inline-flex;
+}
+
+.dropdown-menu.pull-right {
+	top: -3px;
+	right: 100%;
+}
