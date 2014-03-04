@@ -1,8 +1,16 @@
-.btn-group.open .dropdown-menu {
+.btn-group.primary.open > .dropdown-menu.pull-right {
 	display: inline-flex;
 }
 
-.dropdown-menu.pull-right {
+.navigation * .dropdown-menu.pull-right {
 	top: -3px;
 	right: 100%;
+}
+
+div.btn-group.secondary:hover ul.dropdown-menu{
+    display: block;    
+}
+
+div.btn-group ul.dropdown-menu{
+    margin-top: 0px;    
 }

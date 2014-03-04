@@ -25,24 +25,39 @@
 			<div class="col-md-9">
 				<div class="well">content!</div>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 navigation">
 				<div class="well">
 					<nav>
 						<ul class="nav nav-pills nav-stacked">
 							<li><a href="#">Home</a></li>
-							
+
 							<li>
-								<div class="btn-group">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+								<div class="btn-group primary">
+									<button type="button" class="btn dropdown-toggle"
+										data-toggle="dropdown">
+										Action <span class="caret"></span>
+									</button>
 									<ul class="dropdown-menu pull-right" role="menu">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here very very very very very very very </a></li>
-										<li><a href="#">Separated link</a></li>
+										<li><a href="#?6">Action</a></li>
+										<li><a href="#?5">Something else here very very very very very very very</a></li>
+										<li>
+											<div class="btn-group secondary">
+												<button type="button" class="btn btn-default dropdown-toggle"
+													data-toggle="dropdown">
+													Action <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu" role="menu">
+													<li><a href="#?4">Action</a></li>
+													<li><a href="#?3">Something else here very very very very very very very</a></li>
+													<li><a href="#?2">Separated link</a></li>
+												</ul>
+											</div>
+										</li>
+										<li><a href="#?1">Separated link</a></li>
 									</ul>
 								</div>
 							</li>
-							
+
 							<li><a href="#">About</a></li>
 						</ul>
 					</nav>
