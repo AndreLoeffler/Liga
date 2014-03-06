@@ -10,7 +10,9 @@ class UserController extends Controller
     {
     		$user = $this->getUser();
     	
-    		$name = $user->getName();
-        return $this->render('BinaerpilotenLigaBundle:Website:profile.html.twig', array('name' => $name));
+    		$name['first'] = $user->getName();
+    		$name['last'] = $user->getSurname();
+        return $this->render('BinaerpilotenLigaBundle:Website:profile.html.twig', 
+        		array('name' => $name));
     }
 }

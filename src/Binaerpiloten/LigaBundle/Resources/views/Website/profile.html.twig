@@ -5,8 +5,12 @@
 	
 	<table>
 		<tr>
-			<td>Benutzername:</td>
-			<td><input type="text" value="{{ name }}"></input></td>
+			<td>Vorname:</td>
+			<td><input type="text" value="{{ name.first }}"></input></td>
+		</tr>
+		<tr>
+			<td>Nachname:</td>
+			<td><input type="text" value="{{ name.last }}"></input></td>
 		</tr>
 	</table>
 {% endblock %}
