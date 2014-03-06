@@ -31,11 +31,12 @@
 						<ul class="nav nav-pills nav-stacked">
 							<li><a href="#">Home</a></li>
 
+							{% if is_granted('ROLE_USER') %}
 							<li>
 								<div class="btn-group primary">
-									<button type="button" class="btn dropdown-toggle"
-										data-toggle="dropdown">
-										Action <span class="caret"></span>
+									<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+										<span class="glyphicon glyphicon-chevron-left"></span>
+										{{ app.user.username }}
 									</button>
 									<ul class="dropdown-menu pull-right" role="menu">
 										<li><a href="#?6">Action</a></li>
@@ -57,8 +58,11 @@
 									</ul>
 								</div>
 							</li>
+							{% endif %}
 
-							<li><a href="#">About</a></li>
+							{% if is_granted('ROLE_ADMIN') %}
+							<li><a href="#">Admin</a></li>
+							{% endif %}
 						</ul>
 					</nav>
 				</div>
