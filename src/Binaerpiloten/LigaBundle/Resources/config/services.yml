@@ -9,4 +9,9 @@ services:
         class: Binaerpiloten\LigaBundle\Form\Type\RegistrationFormType
         arguments: [%fos_user.model.user.class%]
         tags:
-            - { name: form.type, alias: liga_user_registration }                
+            - { name: form.type, alias: liga_user_registration }
+    liga_user.profile.form.type:
+        class: Binaerpiloten\LigaBundle\Form\Type\ProfileFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: liga_user_profile }                    

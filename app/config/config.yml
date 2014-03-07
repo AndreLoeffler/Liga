@@ -3,8 +3,8 @@ imports:
     - { resource: security.yml }
 
 framework:
+    translator: { fallback: de_DE } 
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -76,3 +76,6 @@ fos_user:
     registration:
         form:
             type: liga_user_registration
+    profile:
+        form:
+            type: liga_user_profile

@@ -22,8 +22,8 @@
 			<div class="col-md-9">
 				<div class="well">
 					{% block content %}
-					{% endblock %}
-					{% block fos_user_content %}
+						{% block fos_user_content %}
+						{% endblock %}
 					{% endblock %}
 				</div>
 			</div>
@@ -41,7 +41,6 @@
 										</button>
 										<ul class="dropdown-menu pull-right" role="menu">
 											<li><a href="{{ path('fos_user_profile_show') }}">Dein Profil</a></li>
-											<li><a href="{{ path('fos_user_change_password') }}">Passwort ändern</a></li>
 											<li>
 												<div class="btn-group secondary">
 													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -63,15 +62,18 @@
 								<form action="{{ path("fos_user_security_check") }}" method="post">
 								    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 								
-								    <label for="username">{{ 'security.login.username'|trans }}</label>
+								    <label for="username">Benutzername:</label>
 								    <input type="text" id="username" name="_username" value="" required="required" />
+								    <br/>
 								
-								    <label for="password">{{ 'security.login.password'|trans }}</label>
+								    <label for="password">Passwort:</label>
 								    <input type="password" id="password" name="_password" required="required" />
+										<br/>
 								
 								    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-								    <label for="remember_me">Merken</label>
-								
+								    <label for="remember_me">Login merken</label>
+										<br/>
+										
 								    <input type="submit" id="_submit" name="_submit" value="Einloggen" />
 								</form>
 							{% endif %}

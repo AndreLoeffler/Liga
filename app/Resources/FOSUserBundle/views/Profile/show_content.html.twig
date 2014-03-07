@@ -5,4 +5,6 @@
 		<tr><td>Vorname: </td><td>{{ user.name }}</td></tr>
 		<tr><td>Nachname: </td><td>{{ user.surname }}</td></tr>
 	</table>
+	<a type="button" href="{{ path('fos_user_profile_edit') }}">Daten ändern</a><br/>
+	<a href="{{ path('fos_user_change_password') }}">Passwort ändern</a>
 </div>
