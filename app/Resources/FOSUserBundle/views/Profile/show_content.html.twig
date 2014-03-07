@@ -2,9 +2,9 @@
 	<table>
 		<tr><td>Benutzername: </td><td>{{ user.username }}</td></tr>
 		<tr><td>Email: </td><td>{{ user.email }}</td></tr>
-		<tr><td>Vorname: </td><td>{{ user.name }}</td></tr>
-		<tr><td>Nachname: </td><td>{{ user.surname }}</td></tr>
+		<tr><td>Vorname: </td><td>{{ user.vorname }}</td></tr>
+		<tr><td>Nachname: </td><td>{{ user.nachname }}</td></tr>
 	</table>
-	<a type="button" href="{{ path('fos_user_profile_edit') }}">Daten ändern</a><br/>
+	<a href="{{ path('fos_user_profile_edit') }}">Daten ändern</a><br/>
 	<a href="{{ path('fos_user_change_password') }}">Passwort ändern</a>
 </div>

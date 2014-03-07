@@ -123,37 +123,4 @@ class User extends BaseUser
     	
     	$this->armeen = new ArrayCollection();
     }
-
-    /**
-     * Add armeen
-     *
-     * @param \Binaerpiloten\LigaBundle\Entity\Armee $armeen
-     * @return User
-     */
-    public function addArmeen(\Binaerpiloten\LigaBundle\Entity\Armee $armeen)
-    {
-        $this->armeen[] = $armeen;
-
-        return $this;
-    }
-
-    /**
-     * Remove armeen
-     *
-     * @param \Binaerpiloten\LigaBundle\Entity\Armee $armeen
-     */
-    public function removeArmeen(\Binaerpiloten\LigaBundle\Entity\Armee $armeen)
-    {
-        $this->armeen->removeElement($armeen);
-    }
-
-    /**
-     * Get armeen
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getArmeen()
-    {
-        return $this->armeen;
-    }
 }
