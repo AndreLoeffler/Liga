@@ -2,7 +2,6 @@ binaerpiloten_liga:
     resource: "@BinaerpilotenLigaBundle/Resources/config/routing.yml"
     prefix:   /
 
-# app/config/routing.yml
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

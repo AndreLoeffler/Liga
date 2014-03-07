@@ -1,4 +1,4 @@
-binaerpiloten_liga_homepage:
+home:
     path: /
     defaults: { _controller: BinaerpilotenLigaBundle:Default:index }
     

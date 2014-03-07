@@ -29,7 +29,7 @@
 				<div class="well">
 					<nav>
 						<ul class="nav nav-pills nav-stacked">
-							<li><a href="#">Home</a></li>
+							<li><a href="{{ path('home') }}">Home</a></li>
 							{% if is_granted('ROLE_USER') %}
 								<li>
 									<div class="btn-group primary">
@@ -38,20 +38,18 @@
 											{{ app.user.username }}
 										</button>
 										<ul class="dropdown-menu pull-right" role="menu">
-											<li><a href="{{ path('user_profile',{ }) }}">Dein Profil</a></li>
-											<li><a href="#?5">Something else here very very very very very very
-													very</a></li>
+											<li><a href="{{ path('fos_user_profile_show') }}">Dein Profil</a></li>
+											<li><a href="{{ path('fos_user_change_password') }}">Passwort ändern</a></li>
 											<li>
 												<div class="btn-group secondary">
-													<button type="button" class="btn btn-default dropdown-toggle"
-														data-toggle="dropdown">
-														Action <span class="caret"></span>
+													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+														Deine Armeen<span class="caret"></span>
 													</button>
 													<ul class="dropdown-menu" role="menu">
-														<li><a href="#?4">Action</a></li>
-														<li><a href="#?3">Something else here very very very very very
-																very very</a></li>
-														<li><a href="#?2">Separated link</a></li>
+														<li><a href="#?4">Necrons</a></li>
+														<li><a href="#?3">Space-Wolfes</a></li>
+														<li class="divider"></li>
+														<li><a href="#?2">Neue Armee</a></li>
 													</ul>
 												</div>
 											</li>
