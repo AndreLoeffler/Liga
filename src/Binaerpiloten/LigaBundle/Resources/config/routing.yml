@@ -2,10 +2,6 @@ home:
     path: /
     defaults: { _controller: BinaerpilotenLigaBundle:Default:index }
     
-user_profile:
-    path: /profile
-    defaults: { _controller: BinaerpilotenLigaBundle:User:profile }
-    
 armee:
     resource: "@BinaerpilotenLigaBundle/Controller/ArmeeController.php"
     type: annotation

@@ -12,22 +12,26 @@ class DefaultController extends Controller
     	? $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
     	: null;
     	
-    	$armeen = $this->getArmeen();
+//     	if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ) {
+//     		$armeen = $this->getArmeenAction();
+//     	} else {
+//     		$armeen = "";
+//     	}
     	
       return $this->render('BinaerpilotenLigaBundle::base.html.twig', 
-      		array('csrf_token' => $csrfToken, 'armeen' => $armeen));
+      		array('csrf_token' => $csrfToken/*, 'armeen' => $armeen*/));
     }
     
-    public function getArmeen() {
-    	$em = $em = $this->getDoctrine()->getManager();
-      $armeen = array();
+//     public function getArmeenAction() {
+//     	$em = $em = $this->getDoctrine()->getManager();
+//       $armeen = array();
 
-      $qarmeen = $em->createQuery("SELECT r " .
-      		"FROM Binaerpiloten\LigaBundle\Entity\Armee r " .
-      		"WHERE r.user = ".$this->getUser()->getId() );
+//       $qarmeen = $em->createQuery("SELECT r " .
+//       		"FROM Binaerpiloten\LigaBundle\Entity\Armee r " .
+//       		"WHERE r.user = ".$this->getUser()->getId() );
       
-      $armeen = $qarmeen->getResult();
+//       $armeen = $qarmeen->getResult();
       
-      return $armeen;
-    }
+//       return $armeen;
+//     }
 }

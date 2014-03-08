@@ -47,6 +47,7 @@
 														Deine Armeen<span class="caret"></span>
 													</button>
 													<ul class="dropdown-menu" role="menu">
+														{% set armeen = globalGetArmeen() %}
 														{% for a in armeen %}
 														<li><a href="#?4">{{ a.getName }}</a></li>
 														{% endfor %}

@@ -14,4 +14,9 @@ services:
         class: Binaerpiloten\LigaBundle\Form\Type\ProfileFormType
         arguments: [%fos_user.model.user.class%]
         tags:
-            - { name: form.type, alias: liga_user_profile }                    
+            - { name: form.type, alias: liga_user_profile }
+    binaerpiloten.twig.armee_extension:
+        class: Binaerpiloten\LigaBundle\Twig\ArmeeExtension
+        arguments: [ @doctrine.orm.entity_manager, @security.context ]
+        tags:
+            - { name: twig.extension }
