@@ -49,7 +49,7 @@
 													<ul class="dropdown-menu" role="menu">
 														{% set armeen = globalGetArmeen() %}
 														{% for a in armeen %}
-														<li><a href="#?4">{{ a.getName }}</a></li>
+														<li><a href="{{ path('armee_show',{ 'id': a.getId }) }}">{{ a.getName }}</a></li>
 														{% endfor %}
 														<li class="divider"></li>
 														<li><a href="{{ path('armee_new') }}">Neue Armee</a></li>
