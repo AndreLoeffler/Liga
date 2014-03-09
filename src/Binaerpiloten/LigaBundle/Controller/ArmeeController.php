@@ -28,7 +28,7 @@ class ArmeeController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-				$user = $this->get('security.context')->getToken()->getUser();
+				$user = $this->getUser();
 				
 
         if ($user->hasRole('ROLE_ADMIN')) {
@@ -127,7 +127,7 @@ class ArmeeController extends Controller
             throw $this->createNotFoundException('Unable to find Armee entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+       	$deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
@@ -232,6 +232,10 @@ class ArmeeController extends Controller
                 throw $this->createNotFoundException('Unable to find Armee entity.');
             }
 
+            if ($entity->getUser() !== $this->getUser()) {
+            	throw $this->createNotFoundException("Can't delete other users armies.");
+            }
+            
             $em->remove($entity);
             $em->flush();
         }
@@ -254,5 +258,9 @@ class ArmeeController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+    
+    public function getUser() {
+    	return $this->get('security.context')->getToken()->getUser();
     }
 }
