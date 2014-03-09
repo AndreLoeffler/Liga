@@ -28,9 +28,19 @@ class ArmeeController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+				$user = $this->get('security.context')->getToken()->getUser();
+				
 
-        $entities = $em->getRepository('BinaerpilotenLigaBundle:Armee')->findAll();
-
+        if ($user->hasRole('ROLE_ADMIN')) {
+        	$entities = $em->getRepository('BinaerpilotenLigaBundle:Armee')->findAll();
+        } else {
+        	$qarmeen = $em->createQuery("SELECT r " .
+        			"FROM Binaerpiloten\LigaBundle\Entity\Armee r " .
+        			"WHERE r.user = ".$this->getUser()->getId() );
+        	
+        	$entities = $qarmeen->getResult();
+        }
+        
         return array(
             'entities' => $entities,
         );
