@@ -49,6 +49,7 @@ class SpielController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+        		$entity->setYou($this->getUser()); //creator is owner
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();

@@ -6,25 +6,22 @@
     <table class="record_properties">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
                 <th>Datum</th>
-                <td>{{ entity.datum|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.datum|date('d.m.Y') }}</td>
             </tr>
             <tr>
                 <th>Mission</th>
                 <td>{{ entity.mission }}</td>
             </tr>
             <tr>
-                <th>Youpunkte</th>
-                <td>{{ entity.youpunkte }}</td>
+                <th>Spieler</th><th>Punkte</th>
             </tr>
             <tr>
-                <th>Enemypunkte</th>
-                <td>{{ entity.enemypunkte }}</td>
+                <td>{{ entity.you.username }}</td><td>{{ entity.youpunkte }}</td>
             </tr>
+            <tr>                            
+                <td>{{ entity.enemy.username }}</td><td>{{ entity.enemypunkte }}</td>
+            </tr>            
         </tbody>
     </table>
 

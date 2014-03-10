@@ -19,7 +19,6 @@ class SpielType extends AbstractType
             ->add('mission')
             ->add('youpunkte')
             ->add('enemypunkte')
-            ->add('you')
             ->add('enemy')
         ;
     }
