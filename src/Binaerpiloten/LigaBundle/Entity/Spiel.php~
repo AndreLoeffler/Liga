@@ -1,0 +1,103 @@
+<?php
+
+namespace Binaerpiloten\LigaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Spiel
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Spiel
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datum", type="date")
+     */
+    private $datum;
+    
+    /**
+     * @var User
+     * 
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="you_id", referencedColumnName="id")
+     */
+		private $you;
+		
+		/**
+		 * @var User
+		 *
+		 * @ORM\OneToOne(targetEntity="User")
+		 * @ORM\JoinColumn(name="enemy_id", referencedColumnName="id")
+		 */
+		private $enemy;
+		
+		/**
+		 * @var String
+		 *
+		 * @ORM\Column(name="Mission", type="string")
+		 */
+		
+		private $mission;
+		
+		/**
+		 * @var integer
+		 *
+		 * @ORM\Column(name="youpunkte", type="integer")
+		 */
+		private $youpunkte;
+		
+		/**
+		 * @var integer
+		 *
+		 * @ORM\Column(name="enemypunkte", type="integer")
+		 */
+		private $enemypunkte;
+		
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set datum
+     *
+     * @param \DateTime $datum
+     * @return Spiel
+     */
+    public function setDatum($datum)
+    {
+        $this->datum = $datum;
+
+        return $this;
+    }
+
+    /**
+     * Get datum
+     *
+     * @return \DateTime 
+     */
+    public function getDatum()
+    {
+        return $this->datum;
+    }
+}

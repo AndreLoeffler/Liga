@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Spiel list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Datum</th>
+                <th>Mission</th>
+                <th>Youpunkte</th>
+                <th>Enemypunkte</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('spiel_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{% if entity.datum %}{{ entity.datum|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.mission }}</td>
+                <td>{{ entity.youpunkte }}</td>
+                <td>{{ entity.enemypunkte }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('spiel_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('spiel_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('spiel_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

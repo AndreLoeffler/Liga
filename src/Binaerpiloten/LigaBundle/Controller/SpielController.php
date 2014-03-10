@@ -7,64 +7,53 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Binaerpiloten\LigaBundle\Entity\Armee;
-use Binaerpiloten\LigaBundle\Form\ArmeeType;
+use Binaerpiloten\LigaBundle\Entity\Spiel;
+use Binaerpiloten\LigaBundle\Form\SpielType;
 
 /**
- * Armee controller.
+ * Spiel controller.
  *
- * @Route("/armee")
+ * @Route("/spiel")
  */
-class ArmeeController extends Controller
+class SpielController extends Controller
 {
 
     /**
-     * Lists all Armee entities.
+     * Lists all Spiel entities.
      *
-     * @Route("/", name="armee")
+     * @Route("/", name="spiel")
      * @Method("GET")
      * @Template()
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-				$user = $this->getUser();
-				
 
-        if ($user->hasRole('ROLE_ADMIN')) {
-        	$entities = $em->getRepository('BinaerpilotenLigaBundle:Armee')->findAll();
-        } else {
-        	$qarmeen = $em->createQuery("SELECT r " .
-        			"FROM Binaerpiloten\LigaBundle\Entity\Armee r " .
-        			"WHERE r.user = ".$this->getUser()->getId() );
-        	
-        	$entities = $qarmeen->getResult();
-        }
-        
+        $entities = $em->getRepository('BinaerpilotenLigaBundle:Spiel')->findAll();
+
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Armee entity.
+     * Creates a new Spiel entity.
      *
-     * @Route("/", name="armee_create")
+     * @Route("/", name="spiel_create")
      * @Method("POST")
-     * @Template("BinaerpilotenLigaBundle:Armee:new.html.twig")
+     * @Template("BinaerpilotenLigaBundle:Spiel:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Armee();
+        $entity = new Spiel();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-        		$entity->setUser($this->getUser()); //set creator as owner
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('armee_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('spiel_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -74,16 +63,16 @@ class ArmeeController extends Controller
     }
 
     /**
-    * Creates a form to create a Armee entity.
+    * Creates a form to create a Spiel entity.
     *
-    * @param Armee $entity The entity
+    * @param Spiel $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Armee $entity)
+    private function createCreateForm(Spiel $entity)
     {
-        $form = $this->createForm(new ArmeeType(), $entity, array(
-            'action' => $this->generateUrl('armee_create'),
+        $form = $this->createForm(new SpielType(), $entity, array(
+            'action' => $this->generateUrl('spiel_create'),
             'method' => 'POST',
         ));
 
@@ -93,15 +82,15 @@ class ArmeeController extends Controller
     }
 
     /**
-     * Displays a form to create a new Armee entity.
+     * Displays a form to create a new Spiel entity.
      *
-     * @Route("/new", name="armee_new")
+     * @Route("/new", name="spiel_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Armee();
+        $entity = new Spiel();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -111,9 +100,9 @@ class ArmeeController extends Controller
     }
 
     /**
-     * Finds and displays a Armee entity.
+     * Finds and displays a Spiel entity.
      *
-     * @Route("/{id}", name="armee_show")
+     * @Route("/{id}", name="spiel_show")
      * @Method("GET")
      * @Template()
      */
@@ -121,13 +110,13 @@ class ArmeeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BinaerpilotenLigaBundle:Armee')->find($id);
+        $entity = $em->getRepository('BinaerpilotenLigaBundle:Spiel')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Armee entity.');
+            throw $this->createNotFoundException('Unable to find Spiel entity.');
         }
 
-       	$deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
@@ -136,9 +125,9 @@ class ArmeeController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Armee entity.
+     * Displays a form to edit an existing Spiel entity.
      *
-     * @Route("/{id}/edit", name="armee_edit")
+     * @Route("/{id}/edit", name="spiel_edit")
      * @Method("GET")
      * @Template()
      */
@@ -146,10 +135,10 @@ class ArmeeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BinaerpilotenLigaBundle:Armee')->find($id);
+        $entity = $em->getRepository('BinaerpilotenLigaBundle:Spiel')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Armee entity.');
+            throw $this->createNotFoundException('Unable to find Spiel entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -163,16 +152,16 @@ class ArmeeController extends Controller
     }
 
     /**
-    * Creates a form to edit a Armee entity.
+    * Creates a form to edit a Spiel entity.
     *
-    * @param Armee $entity The entity
+    * @param Spiel $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Armee $entity)
+    private function createEditForm(Spiel $entity)
     {
-        $form = $this->createForm(new ArmeeType(), $entity, array(
-            'action' => $this->generateUrl('armee_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new SpielType(), $entity, array(
+            'action' => $this->generateUrl('spiel_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -181,23 +170,20 @@ class ArmeeController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Armee entity.
+     * Edits an existing Spiel entity.
      *
-     * @Route("/{id}", name="armee_update")
+     * @Route("/{id}", name="spiel_update")
      * @Method("PUT")
-     * @Template("BinaerpilotenLigaBundle:Armee:edit.html.twig")
+     * @Template("BinaerpilotenLigaBundle:Spiel:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BinaerpilotenLigaBundle:Armee')->find($id);
+        $entity = $em->getRepository('BinaerpilotenLigaBundle:Spiel')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Armee entity.');
-        }
-        if ($entity->getUser() !== $this->getUser()) {
-        	throw $this->createNotFoundException("Can't edit other users armies.");
+            throw $this->createNotFoundException('Unable to find Spiel entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -207,7 +193,7 @@ class ArmeeController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('armee_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('spiel_edit', array('id' => $id)));
         }
 
         return array(
@@ -217,9 +203,9 @@ class ArmeeController extends Controller
         );
     }
     /**
-     * Deletes a Armee entity.
+     * Deletes a Spiel entity.
      *
-     * @Route("/{id}", name="armee_delete")
+     * @Route("/{id}", name="spiel_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -229,25 +215,21 @@ class ArmeeController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('BinaerpilotenLigaBundle:Armee')->find($id);
+            $entity = $em->getRepository('BinaerpilotenLigaBundle:Spiel')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Armee entity.');
+                throw $this->createNotFoundException('Unable to find Spiel entity.');
             }
 
-            if ($entity->getUser() !== $this->getUser()) {
-            	throw $this->createNotFoundException("Can't delete other users armies.");
-            }
-            
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('armee'));
+        return $this->redirect($this->generateUrl('spiel'));
     }
 
     /**
-     * Creates a form to delete a Armee entity by id.
+     * Creates a form to delete a Spiel entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -256,14 +238,10 @@ class ArmeeController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('armee_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('spiel_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
-    }
-    
-    public function getUser() {
-    	return $this->get('security.context')->getToken()->getUser();
     }
 }
