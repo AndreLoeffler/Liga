@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends 'BinaerpilotenLigaBundle::base.html.twig' %}
 
-{% block body -%}
+{% block content %}
     <h1>Spiel</h1>
 
     <table class="record_properties">
@@ -28,17 +28,14 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
+<ul class="record_actions">
     <li>
-        <a href="{{ path('spiel') }}">
-            Back to the list
-        </a>
+        <a href="{{ path('spiel') }}">Back to the list</a>
     </li>
+    {% if entity.you.id == app.user.id %}
     <li>
-        <a href="{{ path('spiel_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
+        <a href="{{ path('spiel_edit', { 'id': entity.id }) }}">Edit</a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    {% endif %}
 </ul>
 {% endblock %}

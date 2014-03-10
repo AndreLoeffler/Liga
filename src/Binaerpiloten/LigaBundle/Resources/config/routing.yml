@@ -5,3 +5,7 @@ home:
 armee:
     resource: "@BinaerpilotenLigaBundle/Controller/ArmeeController.php"
     type: annotation
+    
+spiel:
+    resource: "@BinaerpilotenLigaBundle/Controller/SpielController.php"
+    type: annotation
