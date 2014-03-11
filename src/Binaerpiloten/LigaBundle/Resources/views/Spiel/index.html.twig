@@ -9,7 +9,9 @@
                 <th>Id</th>
                 <th>Datum</th>
                 <th>Mission</th>
+                <th>Spieler 1</th>
                 <th>Youpunkte</th>
+                <th>Spieler 2</th>
                 <th>Enemypunkte</th>
                 <th>Actions</th>
             </tr>
@@ -20,7 +22,9 @@
                 <td><a href="{{ path('spiel_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{% if entity.datum %}{{ entity.datum|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ entity.mission }}</td>
+                <td>{{ entity.you.username }}</td>
                 <td>{{ entity.youpunkte }}</td>
+                <td>{{ entity.enemy.username }}</td>
                 <td>{{ entity.enemypunkte }}</td>
                 <td>
                 <ul>

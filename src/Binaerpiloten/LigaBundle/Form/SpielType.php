@@ -8,7 +8,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SpielType extends AbstractType
 {
-        /**
+		// constant = submitValue
+		const Kreuzzug = "Kreuzzug";
+		const Vernichtung = "Töte den Alien";
+		const GroßeKannonen = "Große Kanonen ruhen nie";
+		const Reinigung = "Die Reinigung";
+		const WilleDesImperators = "Der Wille des Imperators";
+		const Relikt = "Das Relikt";
+		
+		
+		/**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -16,7 +25,8 @@ class SpielType extends AbstractType
     {
         $builder
             ->add('datum')
-            ->add('mission')
+            ->add('mission', 'choice', array(
+            		'choices' => $this->getMissionConstants()))
             ->add('youpunkte')
             ->add('enemypunkte')
             ->add('enemy')
@@ -31,6 +41,18 @@ class SpielType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Binaerpiloten\LigaBundle\Entity\Spiel'
         ));
+    }
+    
+    public function getMissionConstants() {
+    	return array(
+    			//constant => label
+    			self::Kreuzzug => 'Kreuzzug',
+    			self::Vernichtung => 'Töte den Alien',
+    			self::GroßeKannonen => 'Große Kanonen ruhen nie',
+    			self::Reinigung => 'Die Reinigung',
+    			self::WilleDesImperators => 'Der Wille des Imperators',
+    			self::Relikt => 'Das Relikt',
+    	);
     }
 
     /**

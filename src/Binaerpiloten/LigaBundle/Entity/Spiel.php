@@ -32,16 +32,14 @@ class Spiel
     /**
      * @var User
      * 
-     * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="you_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
      */
 		private $you;
 		
 		/**
 		 * @var User
 		 *
-		 * @ORM\OneToOne(targetEntity="User")
-		 * @ORM\JoinColumn(name="enemy_id", referencedColumnName="id")
+		 * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
 		 */
 		private $enemy;
 		
@@ -214,5 +212,59 @@ class Spiel
     public function getEnemy()
     {
         return $this->enemy;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->you = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->enemy = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add you
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\User $you
+     * @return Spiel
+     */
+    public function addYou(\Binaerpiloten\LigaBundle\Entity\User $you)
+    {
+        $this->you[] = $you;
+
+        return $this;
+    }
+
+    /**
+     * Remove you
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\User $you
+     */
+    public function removeYou(\Binaerpiloten\LigaBundle\Entity\User $you)
+    {
+        $this->you->removeElement($you);
+    }
+
+    /**
+     * Add enemy
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\User $enemy
+     * @return Spiel
+     */
+    public function addEnemy(\Binaerpiloten\LigaBundle\Entity\User $enemy)
+    {
+        $this->enemy[] = $enemy;
+
+        return $this;
+    }
+
+    /**
+     * Remove enemy
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\User $enemy
+     */
+    public function removeEnemy(\Binaerpiloten\LigaBundle\Entity\User $enemy)
+    {
+        $this->enemy->removeElement($enemy);
     }
 }
