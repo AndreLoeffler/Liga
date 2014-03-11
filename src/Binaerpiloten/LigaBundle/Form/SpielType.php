@@ -43,6 +43,15 @@ class SpielType extends AbstractType
         ));
     }
     
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'binaerpiloten_ligabundle_spiel';
+    }
+/* ========================== Helper functions go here! ================================= */
     public function getMissionConstants() {
     	return array(
     			//constant => label
@@ -53,13 +62,5 @@ class SpielType extends AbstractType
     			self::WilleDesImperators => 'Der Wille des Imperators',
     			self::Relikt => 'Das Relikt',
     	);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'binaerpiloten_ligabundle_spiel';
     }
 }

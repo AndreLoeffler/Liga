@@ -20,21 +20,14 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('spiel_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{% if entity.datum %}{{ entity.datum|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.datum %}{{ entity.datum|date('d.m.Y') }}{% endif %}</td>
                 <td>{{ entity.mission }}</td>
                 <td>{{ entity.you.username }}</td>
                 <td>{{ entity.youpunkte }}</td>
                 <td>{{ entity.enemy.username }}</td>
                 <td>{{ entity.enemypunkte }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('spiel_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('spiel_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                <a href="{{ path('spiel_show', { 'id': entity.id }) }}">show</a>
                 </td>
             </tr>
         {% endfor %}
