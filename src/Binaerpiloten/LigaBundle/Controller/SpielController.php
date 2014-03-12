@@ -35,6 +35,32 @@ class SpielController extends Controller
             'entities' => $entities,
         );
     }
+    
+    /**
+     * Lists all your Spiel entities.
+     *
+     * @Route("/player/{id}", name="spiel_you")
+     * @Method("GET")
+     * @Template("BinaerpilotenLigaBundle:Spiel:index.html.twig")
+     */
+    public function youAction($id)
+    {
+    	$em = $this->getDoctrine()->getManager();
+    
+    	$qspiele = $em->createQuery("SELECT r " .
+    			"FROM Binaerpiloten\LigaBundle\Entity\Spiel r " .
+    			"WHERE r.you = ".$id .
+        	"OR r.enemy = ".$id );
+    	
+    	$entities = $qspiele->getResult();
+    	
+    	
+    
+    	return array(
+    			'entities' => $entities,
+    	);
+    }
+    
     /**
      * Creates a new Spiel entity.
      *

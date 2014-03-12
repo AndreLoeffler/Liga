@@ -33,54 +33,16 @@
 						<ul class="nav nav-pills nav-stacked">
 							<li><a href="{{ path('home') }}">Home</a></li>
 							{% if is_granted('ROLE_USER') %}
-								<li>
-									<div class="btn-group primary">
-										<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
-											<span class="glyphicon glyphicon-chevron-left"></span> 
-											{{ app.user.username }}
-										</button>
-										<ul class="dropdown-menu pull-right" role="menu">
-											<li><a href="{{ path('fos_user_profile_show') }}">Dein Profil</a></li>
-											<li>
-												<div class="btn-group secondary">
-													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-														Deine Armeen<span class="caret"></span>
-													</button>
-													<ul class="dropdown-menu" role="menu">
-														{% set armeen = globalGetArmeen() %}
-														{% for a in armeen %}
-														<li><a href="{{ path('armee_show',{ 'id': a.getId }) }}">{{ a.getName }}</a></li>
-														{% endfor %}
-														<li class="divider"></li>
-														<li><a href="{{ path('armee_new') }}">Neue Armee</a></li>
-													</ul>
-												</div>
-											</li>
-											<li><a href="{{ path('fos_user_security_logout',{ }) }}">Logout</a></li>
-										</ul>
-									</div>
-								</li>
+								{# is the viewer logged in? #}
+								{% include "BinaerpilotenLigaBundle:Menu:user.html.twig" %}
+								{% include "BinaerpilotenLigaBundle:Menu:spiel.html.twig" %}
 							{% else %}
-								<form action="{{ path("fos_user_security_check") }}" method="post">
-								    <input type="hidden" name="_csrf_token" value="{{ globalGetToken() }}" />
-								
-								    <label for="username">Benutzername:</label>
-								    <input type="text" id="username" name="_username" value="" required="required" />
-								    <br/>
-								
-								    <label for="password">Passwort:</label>
-								    <input type="password" id="password" name="_password" required="required" />
-										<br/>
-								
-								    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-								    <label for="remember_me">Login merken</label>
-										<br/>
-										
-								    <input type="submit" id="_submit" name="_submit" value="Einloggen" />
-								</form>
+								{# if not, present login-form #}
+								{% include "BinaerpilotenLigaBundle:Menu:login.html.twig" %}
 							{% endif %}
 							{% if is_granted('ROLE_ADMIN') %}
-							<li><a href="#">Admin</a></li>
+								{# is he logged in and even admin? #}
+								<li><a href="#">Admin</a></li>
 							{% endif %}
 						</ul>
 					</nav>

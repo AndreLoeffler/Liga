@@ -1,0 +1,28 @@
+<li>
+	<div class="btn-group primary">
+		<button type="button" class="btn dropdown-toggle"
+			data-toggle="dropdown">
+			<span class="glyphicon glyphicon-chevron-left"></span> 
+			{{ app.user.username }}
+		</button>
+		<ul class="dropdown-menu pull-right" role="menu">
+			<li><a href="{{ path('fos_user_profile_show') }}">Dein Profil</a></li>
+			<li>
+				<div class="btn-group secondary">
+					<button type="button" class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown">
+						Deine Armeen<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						{% set armeen = globalGetArmeen() %} {% for a in armeen %}
+						<li><a href="{{ path('armee_show',{ 'id': a.getId }) }}">{{
+								a.getName }}</a></li> {% endfor %}
+						<li class="divider"></li>
+						<li><a href="{{ path('armee_new') }}">Neue Armee</a></li>
+					</ul>
+				</div>
+			</li>
+			<li><a href="{{ path('fos_user_security_logout',{ }) }}">Logout</a></li>
+		</ul>
+	</div>
+</li>

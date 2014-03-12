@@ -1,0 +1,34 @@
+<li>
+	<div class="btn-group primary">
+		<button type="button" 
+						class="btn dropdown-toggle"
+						data-toggle="dropdown">
+			<span class="glyphicon glyphicon-chevron-left"></span> Spiele
+		</button>
+		<ul class="dropdown-menu pull-right" role="menu">
+			<li><a href="{{ path('spiel_you', {'id': app.user.id } ) }}">Deine Spiele</a></li>
+			<li><a href="{{ path('spiel') }}">Alle Spiele</a></li>
+			<li><a href="{{ path('user') }}">Alle Spieler</a></li>
+			<li><a href="{{ path('spiel_new') }}">Neues Spiel eintragen</a></li>
+			
+			{#
+			<li>
+				<div class="btn-group secondary">
+					<button type="button" class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown">
+						Deine Armeen<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						{% set armeen = globalGetArmeen() %} {% for a in armeen %}
+						<li><a href="{{ path('armee_show',{ 'id': a.getId }) }}">{{
+								a.getName }}</a></li> {% endfor %}
+						<li class="divider"></li>
+						<li><a href="{{ path('armee_new') }}">Neue Armee</a></li>
+					</ul>
+				</div>
+			</li>
+			#}
+
+		</ul>
+	</div>
+</li>

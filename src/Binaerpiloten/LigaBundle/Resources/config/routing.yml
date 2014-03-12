@@ -9,3 +9,7 @@ armee:
 spiel:
     resource: "@BinaerpilotenLigaBundle/Controller/SpielController.php"
     type: annotation
+    
+user:
+    resource: "@BinaerpilotenLigaBundle/Controller/UserController.php"
+    type: annotation

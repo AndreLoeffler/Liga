@@ -1,0 +1,12 @@
+<form action="{{ path("fos_user_security_check") }}" method="post">
+	<input type="hidden" name="_csrf_token" value="{{ globalGetToken() }}" />
+
+	<label for="username">Benutzername:</label> <input type="text"
+		id="username" name="_username" value="" required="required" /> <br />
+
+	<label for="password">Passwort:</label> <input type="password"
+		id="password" name="_password" required="required" /> <br /> <input
+		type="checkbox" id="remember_me" name="_remember_me" value="on" /> <label
+		for="remember_me">Login merken</label> <br /> <input type="submit"
+		id="_submit" name="_submit" value="Einloggen" />
+</form>
