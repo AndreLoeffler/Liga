@@ -6,10 +6,10 @@
 			<span class="glyphicon glyphicon-chevron-left"></span> Spiele
 		</button>
 		<ul class="dropdown-menu pull-right" role="menu">
-			<li><a href="{{ path('spiel_you', {'id': app.user.id } ) }}">Deine Spiele</a></li>
+			<li><a href="{{ path('spiel_you', {'name': app.user.username } ) }}">Deine Spiele</a></li>
 			<li><a href="{{ path('spiel') }}">Alle Spiele</a></li>
 			<li><a href="{{ path('user') }}">Alle Spieler</a></li>
-			<li><a href="{{ path('spiel_new') }}">Neues Spiel eintragen</a></li>
+			<li><a href="{{ path('spiel_new', {'name': 'andre'}) }}">Neues Spiel eintragen</a></li>
 			
 			{#
 			<li>

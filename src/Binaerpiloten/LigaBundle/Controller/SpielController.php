@@ -39,18 +39,23 @@ class SpielController extends Controller
     /**
      * Lists all your Spiel entities.
      *
-     * @Route("/player/{id}", name="spiel_you")
+     * @Route("/player/{name}", name="spiel_you")
      * @Method("GET")
      * @Template("BinaerpilotenLigaBundle:Spiel:index.html.twig")
      */
-    public function youAction($id)
+    public function youAction($name)
     {
     	$em = $this->getDoctrine()->getManager();
-    
+    	
+    	$qid = $em->createQuery("SELECT r.id " .
+    			"FROM Binaerpiloten\LigaBundle\Entity\User r " .
+    			"WHERE r.username = '".$name."'" );
+    	 
+    	$id = $qid->getResult();
     	$qspiele = $em->createQuery("SELECT r " .
     			"FROM Binaerpiloten\LigaBundle\Entity\Spiel r " .
-    			"WHERE r.you = ".$id .
-        	"OR r.enemy = ".$id );
+    			"WHERE r.you = ".$id[0]['id'] .
+        	"OR r.enemy = ".$id[0]['id'] );
     	
     	$entities = $qspiele->getResult();
     	
@@ -64,19 +69,29 @@ class SpielController extends Controller
     /**
      * Creates a new Spiel entity.
      *
-     * @Route("/", name="spiel_create")
+     * @Route("/{name}", name="spiel_create")
      * @Method("POST")
      * @Template("BinaerpilotenLigaBundle:Spiel:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request,$name)
     {
         $entity = new Spiel();
-        $form = $this->createCreateForm($entity);
+        
+        $form = $this->createCreateForm($entity,$name);
         $form->handleRequest($request);
+        
+        print_r($entity);
+        
 
         if ($form->isValid()) {
-        		$entity->setYou($this->getUser()); //creator is owner
             $em = $this->getDoctrine()->getManager();
+            $quser = $em->createQuery("SELECT r " .
+            		"FROM Binaerpiloten\LigaBundle\Entity\User r " .
+            		"WHERE r.username = '".$name."'");
+             
+            $euser = $quser->getResult()[0];
+            $entity->setEnemy($euser); //enemy from route
+            $entity->setYou($this->getUser()); //creator is owner
             $em->persist($entity);
             $em->flush();
 
@@ -96,10 +111,10 @@ class SpielController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Spiel $entity)
+    private function createCreateForm(Spiel $entity,$name)
     {
         $form = $this->createForm(new SpielType(), $entity, array(
-            'action' => $this->generateUrl('spiel_create'),
+            'action' => $this->generateUrl('spiel_create', array('name' => $name)),
             'method' => 'POST',
         ));
 
@@ -111,14 +126,15 @@ class SpielController extends Controller
     /**
      * Displays a form to create a new Spiel entity.
      *
-     * @Route("/new", name="spiel_new")
+     * @Route("/new/{name}", name="spiel_new")
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction($name)
     {
         $entity = new Spiel();
-        $form   = $this->createCreateForm($entity);
+
+        $form   = $this->createCreateForm($entity,$name);
 
         return array(
             'entity' => $entity,

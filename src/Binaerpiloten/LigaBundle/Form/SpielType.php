@@ -3,8 +3,12 @@
 namespace Binaerpiloten\LigaBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Binaerpiloten\LigaBundle\Entity\User;
 
 class SpielType extends AbstractType
 {
@@ -29,8 +33,8 @@ class SpielType extends AbstractType
             		'choices' => $this->getMissionConstants()))
             ->add('youpunkte')
             ->add('enemypunkte')
-            ->add('enemy')
-        ;
+					;
+            
     }
     
     /**

@@ -65,6 +65,17 @@ class Spiel
 		 */
 		private $enemypunkte;
 		
+		/**
+		 * @ORM\ManyToOne(targetEntity="Armee", inversedBy="id")
+		 */
+		
+		private $youarmee;
+		
+		/**
+		 * @ORM\ManyToOne(targetEntity="Armee", inversedBy="id")
+		 */
+		
+		private $enemyarmee;
 
     /**
      * Get id
@@ -266,5 +277,51 @@ class Spiel
     public function removeEnemy(\Binaerpiloten\LigaBundle\Entity\User $enemy)
     {
         $this->enemy->removeElement($enemy);
+    }
+
+    /**
+     * Set enemyarmee
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\Armee $enemyarmee
+     * @return Spiel
+     */
+    public function setEnemyarmee(\Binaerpiloten\LigaBundle\Entity\Armee $enemyarmee = null)
+    {
+        $this->enemyarmee = $enemyarmee;
+
+        return $this;
+    }
+
+    /**
+     * Get enemyarmee
+     *
+     * @return \Binaerpiloten\LigaBundle\Entity\Armee 
+     */
+    public function getEnemyarmee()
+    {
+        return $this->enemyarmee;
+    }
+
+    /**
+     * Set youarmee
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\Armee $youarmee
+     * @return Spiel
+     */
+    public function setYouarmee(\Binaerpiloten\LigaBundle\Entity\Armee $youarmee = null)
+    {
+        $this->youarmee = $youarmee;
+
+        return $this;
+    }
+
+    /**
+     * Get youarmee
+     *
+     * @return \Binaerpiloten\LigaBundle\Entity\Armee 
+     */
+    public function getYouarmee()
+    {
+        return $this->youarmee;
     }
 }
