@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Binaerpiloten\LigaBundle\Entity\Spiel;
+use Binaerpiloten\LigaBundle\Entity\User as User;
 use Binaerpiloten\LigaBundle\Form\SpielType;
 
 /**
@@ -77,21 +78,21 @@ class SpielController extends Controller
     {
         $entity = new Spiel();
         
-        $form = $this->createCreateForm($entity,$name);
+        $em = $this->getDoctrine()->getManager();
+        $quser = $em->createQuery("SELECT r " .
+        		"FROM Binaerpiloten\LigaBundle\Entity\User r " .
+        		"WHERE r.username = '".$name."'");
+         
+        $enemy = $quser->getResult()[0];
+        $you = $this->getUser();
+        
+        $entity->setEnemy($enemy); //enemy from route
+        $entity->setYou($you); //creator is owner
+        
+        $form = $this->createCreateForm($entity,$you,$enemy);
         $form->handleRequest($request);
         
-        print_r($entity);
-        
-
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $quser = $em->createQuery("SELECT r " .
-            		"FROM Binaerpiloten\LigaBundle\Entity\User r " .
-            		"WHERE r.username = '".$name."'");
-             
-            $euser = $quser->getResult()[0];
-            $entity->setEnemy($euser); //enemy from route
-            $entity->setYou($this->getUser()); //creator is owner
             $em->persist($entity);
             $em->flush();
 
@@ -111,10 +112,10 @@ class SpielController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Spiel $entity,$name)
+    private function createCreateForm(Spiel $entity, User $you, User $enemy)
     {
-        $form = $this->createForm(new SpielType(), $entity, array(
-            'action' => $this->generateUrl('spiel_create', array('name' => $name)),
+        $form = $this->createForm(new SpielType($you,$enemy), $entity, array(
+            'action' => $this->generateUrl('spiel_create', array('name' => $enemy->getUsername())),
             'method' => 'POST',
         ));
 
@@ -133,8 +134,19 @@ class SpielController extends Controller
     public function newAction($name)
     {
         $entity = new Spiel();
+        
+        $em = $this->getDoctrine()->getManager();
+        $quser = $em->createQuery("SELECT r " .
+        		"FROM Binaerpiloten\LigaBundle\Entity\User r " .
+        		"WHERE r.username = '".$name."'");
+         
+        $enemy = $quser->getResult()[0];
+        $you = $this->getUser();
+        
+        $entity->setEnemy($enemy); //enemy from route
+        $entity->setYou($you); //creator is owner
 
-        $form   = $this->createCreateForm($entity,$name);
+        $form   = $this->createCreateForm($entity,$you,$enemy);
 
         return array(
             'entity' => $entity,

@@ -9,9 +9,14 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Binaerpiloten\LigaBundle\Entity\User;
+use Doctrine\ORM\EntityRepository;
 
 class SpielType extends AbstractType
 {
+	
+		private $you;
+		private $enemy;
+		
 		// constant = submitValue
 		const Kreuzzug = "Kreuzzug";
 		const Vernichtung = "Töte den Alien";
@@ -33,6 +38,18 @@ class SpielType extends AbstractType
             		'choices' => $this->getMissionConstants()))
             ->add('youpunkte')
             ->add('enemypunkte')
+            ->add('youarmee','entity', array(
+            	'class' => 'BinaerpilotenLigaBundle:Armee',
+            	'query_builder' => function(EntityRepository $er) {
+                return $er->createQueryBuilder('pp')->where("pp.user = ".$this->you->getId());
+              },)	
+            )
+            ->add('enemyarmee','entity', array(
+            	'class' => 'BinaerpilotenLigaBundle:Armee',
+            	'query_builder' => function(EntityRepository $er) {
+            		return $er->createQueryBuilder('pp')->where("pp.user = ".$this->enemy->getId());
+            	},)
+            )
 					;
             
     }
@@ -54,6 +71,11 @@ class SpielType extends AbstractType
     public function getName()
     {
         return 'binaerpiloten_ligabundle_spiel';
+    }
+    
+    public function __construct($y,$e){
+    	$this->you = $y;
+    	$this->enemy = $e;
     }
 /* ========================== Helper functions go here! ================================= */
     public function getMissionConstants() {

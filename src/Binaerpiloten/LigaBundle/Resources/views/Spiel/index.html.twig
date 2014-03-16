@@ -11,8 +11,10 @@
                 <th>Mission</th>
                 <th>Spieler 1</th>
                 <th>Youpunkte</th>
+                <th>Youarmee</th>
                 <th>Spieler 2</th>
                 <th>Enemypunkte</th>
+                <th>Enemyarmee</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -24,8 +26,10 @@
                 <td>{{ entity.mission }}</td>
                 <td>{{ entity.you.username }}</td>
                 <td>{{ entity.youpunkte }}</td>
+                <td>{{ entity.youarmee.name }}</td>
                 <td>{{ entity.enemy.username }}</td>
                 <td>{{ entity.enemypunkte }}</td>
+                <td>{{ entity.enemyarmee.name }}</td>
                 <td>
                 <a href="{{ path('spiel_show', { 'id': entity.id }) }}">show</a>
                 </td>
