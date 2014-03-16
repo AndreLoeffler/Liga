@@ -31,4 +31,8 @@ services:
         arguments: [ @doctrine.orm.entity_manager ]
         tags:
             - { name: twig.extension }
-            
+    binaerpiloten.twig.standing_extension:
+        class: Binaerpiloten\LigaBundle\Twig\StandingExtension
+        arguments: [  ]
+        tags:
+            - { name: twig.extension }

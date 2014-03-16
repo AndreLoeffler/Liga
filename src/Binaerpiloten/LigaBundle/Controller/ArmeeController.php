@@ -60,6 +60,9 @@ class ArmeeController extends Controller
 
         if ($form->isValid()) {
         		$entity->setUser($this->getUser()); //set creator as owner
+        		$entity->setWin(0);
+        		$entity->setEven(0);
+        		$entity->setLoss(0);
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();

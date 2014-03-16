@@ -17,6 +17,16 @@
                 <th>Spieler</th>
                 <td>{{ entity.user }}</td>
             </tr>
+            {% set total = entity.win+entity.loss+entity.even %}
+            {% if total != 0 %}
+	            <tr>
+				          <style type="text/css">
+										{{ globalStandingBar(entity.id,(100 * entity.win)/total,100 - (100 * entity.loss)/total) }}
+				          </style>
+	                <th>Ergebnis</th>
+	                <td class="standing-{{ entity.id }}">{{ entity.win }}-{{ entity.even }}-{{ entity.loss }}</td>
+	            </tr>
+            {% endif %}
         </tbody>
     </table>
 
