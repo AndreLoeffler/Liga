@@ -86,6 +86,10 @@ class SpielController extends Controller
         $enemy = $quser->getResult()[0];
         $you = $this->getUser();
         
+        if ($enemy == $you) {
+        	throw $this->createNotFoundException('Cannot challenge yourself.');
+        }
+        
         $entity->setEnemy($enemy); //enemy from route
         $entity->setYou($you); //creator is owner
         
@@ -93,6 +97,17 @@ class SpielController extends Controller
         $form->handleRequest($request);
         
         if ($form->isValid()) {
+        		// calculate score-change
+        		if ($entity->getYoupunkte() > $entity->getEnemypunkte()) {
+        			$you->won();
+        			$enemy->lost();
+        		} else if ($entity->getYoupunkte() < $entity->getEnemypunkte()) {
+        			$enemy->won();
+        			$you->lost();
+        		} else {
+        			$enemy->tied();
+        			$you->tied();
+        		}
             $em->persist($entity);
             $em->flush();
 
@@ -146,6 +161,10 @@ class SpielController extends Controller
         $entity->setEnemy($enemy); //enemy from route
         $entity->setYou($you); //creator is owner
 
+        if ($enemy == $you) {
+        	throw $this->createNotFoundException('Cannot challenge yourself.');
+        }
+        
         $form   = $this->createCreateForm($entity,$you,$enemy);
 
         return array(
