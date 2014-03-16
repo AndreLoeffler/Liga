@@ -1,8 +1,10 @@
 {% extends 'BinaerpilotenLigaBundle::base.html.twig' %}
 
-{% block content %}
-    <h1>User</h1>
+{% block tplstyle %}
 
+{% endblock %}
+
+{% block content %}
     <table class="record_properties">
         <tbody>
             <tr>
@@ -15,11 +17,7 @@
             </tr>
             <tr>
                 <th>Lastlogin</th>
-                <td>{{ entity.lastLogin|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
+                <td>{{ entity.lastLogin|date('d.m.Y') }}</td>
             </tr>
             <tr>
                 <th>Vorname</th>
@@ -29,14 +27,40 @@
                 <th>Nachname</th>
                 <td>{{ entity.nachname }}</td>
             </tr>
+            {% for a in entity.armeen %}
+            {% set total = a.win+a.loss+a.even %}
+            {% if total != 0 %}
+	            {% set wintotal = (100 * a.win)/total %}
+	            {% set losstotal = 100 - (100 * a.loss)/total %}
+	            <style type="text/css">
+	            .standing-{{ a.id }} {
+	            	width: 240px;
+	            	height: 30px;
+	            	background: #8fc800; /* Old browsers */
+								background: -moz-linear-gradient(left,  #8fc800 0%, #c6c000 {{ wintotal }}%, #c6c000 {{ losstotal }}%, #c60000 100%); /* FF3.6+ */
+								background: -webkit-gradient(linear, left top, right top, color-stop(0%,#8fc800), color-stop({{ wintotal }}%,#c6c000), color-stop({{ losstotal }}%,#c6c000), color-stop(100%,#c60000)); /* Chrome,Safari4+ */
+								background: -webkit-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* Chrome10+,Safari5.1+ */
+								background: -o-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* Opera 11.10+ */
+								background: -ms-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* IE10+ */
+								background: linear-gradient(to right,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* W3C */
+								filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8fc800', endColorstr='#c60000',GradientType=1 ); /* IE6-9 */
+	            }
+	            </style>
+	            <tr>
+	                <th>Ergebnis</th>
+	                <td class="standing-{{ a.id }}">{{ a.win }}-{{ a.even }}-{{ a.loss }}</td>
+	            </tr>
+	          {% endif %}
+            {% endfor %}
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('user') }}">
-            Back to the list
-        </a>
-    </li>
+	
+<ul class="record_actions">
+{% if app.user.id == entity.id %}
+	<li><a href="{{ path('fos_user_profile_edit') }}">Daten ändern</a><br/></li>
+	<li><a href="{{ path('fos_user_change_password') }}">Passwort ändern</a></li>
+{% endif %}
+  <li><a href="{{ path('user') }}">Back to the list</a></li>
 </ul>
 {% endblock %}

@@ -57,33 +57,10 @@ class User extends BaseUser
     private $nachname;
     
     /**
-     * @ORM\OneToMany(targetEntity="Armee", mappedBy="player")
+     * @ORM\OneToMany(targetEntity="Armee", mappedBy="user")
      */
     private $armeen;
     
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="win", type="integer")
-     */
-    protected $win;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="even", type="integer")
-     */
-    protected $even;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="loss", type="integer")
-     */
-    protected $loss;
-    
-    
-
     /**
      * Get id
      *
@@ -180,84 +157,4 @@ class User extends BaseUser
         return $this->armeen;
     }
 
-    /**
-     * Set win
-     *
-     * @param integer $win
-     * @return User
-     */
-    public function setWin($win)
-    {
-        $this->win = $win;
-
-        return $this;
-    }
-
-    /**
-     * Get win
-     *
-     * @return integer 
-     */
-    public function getWin()
-    {
-        return $this->win;
-    }
-
-    /**
-     * Set even
-     *
-     * @param integer $even
-     * @return User
-     */
-    public function setEven($even)
-    {
-        $this->even = $even;
-
-        return $this;
-    }
-
-    /**
-     * Get even
-     *
-     * @return integer 
-     */
-    public function getEven()
-    {
-        return $this->even;
-    }
-
-    /**
-     * Set loss
-     *
-     * @param integer $loss
-     * @return User
-     */
-    public function setLoss($loss)
-    {
-        $this->loss = $loss;
-
-        return $this;
-    }
-
-    /**
-     * Get loss
-     *
-     * @return integer 
-     */
-    public function getLoss()
-    {
-        return $this->loss;
-    }
-    
-    public function won() {
-    	$this->win++;
-    }
-    public function tied() {
-    	$this->even++;
-    }
-    public function lost() {
-    	$this->loss++;
-    }
-    
-    
 }

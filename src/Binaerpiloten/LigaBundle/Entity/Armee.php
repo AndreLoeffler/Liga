@@ -40,6 +40,27 @@ class Armee
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="win", type="integer")
+     */
+    protected $win;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="even", type="integer")
+     */
+    protected $even;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="loss", type="integer")
+     */
+    protected $loss;
 
     /**
      * Get id
@@ -123,4 +144,84 @@ class Armee
     public function __toString() {
     	return $this->name;
     }
+
+    /**
+     * Set win
+     *
+     * @param integer $win
+     * @return Armee
+     */
+    public function setWin($win)
+    {
+        $this->win = $win;
+
+        return $this;
+    }
+
+    /**
+     * Get win
+     *
+     * @return integer 
+     */
+    public function getWin()
+    {
+        return $this->win;
+    }
+
+    /**
+     * Set even
+     *
+     * @param integer $even
+     * @return Armee
+     */
+    public function setEven($even)
+    {
+        $this->even = $even;
+
+        return $this;
+    }
+
+    /**
+     * Get even
+     *
+     * @return integer 
+     */
+    public function getEven()
+    {
+        return $this->even;
+    }
+
+    /**
+     * Set loss
+     *
+     * @param integer $loss
+     * @return Armee
+     */
+    public function setLoss($loss)
+    {
+        $this->loss = $loss;
+
+        return $this;
+    }
+
+    /**
+     * Get loss
+     *
+     * @return integer 
+     */
+    public function getLoss()
+    {
+        return $this->loss;
+    }
+    
+    public function won() {
+    	$this->win++;
+    }
+    public function tied() {
+    	$this->even++;
+    }
+    public function lost() {
+    	$this->loss++;
+    }
+    
 }

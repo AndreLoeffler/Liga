@@ -99,14 +99,14 @@ class SpielController extends Controller
         if ($form->isValid()) {
         		// calculate score-change
         		if ($entity->getYoupunkte() > $entity->getEnemypunkte()) {
-        			$you->won();
-        			$enemy->lost();
+        			$entity->getYouarmee()->won();
+        			$entity->getEnemyarmee()->lost();
         		} else if ($entity->getYoupunkte() < $entity->getEnemypunkte()) {
-        			$enemy->won();
-        			$you->lost();
+        			$entity->getEnemyarmee()->won();
+        			$entity->getYouarmee()->lost();
         		} else {
-        			$enemy->tied();
-        			$you->tied();
+        			$entity->getEnemyarmee()->tied();
+        			$entity->getYouarmee()->tied();
         		}
             $em->persist($entity);
             $em->flush();

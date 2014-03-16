@@ -69,13 +69,13 @@ class Spiel
 		 * @ORM\ManyToOne(targetEntity="Armee", inversedBy="id")
 		 */
 		
-		private $youarmee;
+		protected $youarmee;
 		
 		/**
 		 * @ORM\ManyToOne(targetEntity="Armee", inversedBy="id")
 		 */
 		
-		private $enemyarmee;
+		protected $enemyarmee;
 
     /**
      * Get id
