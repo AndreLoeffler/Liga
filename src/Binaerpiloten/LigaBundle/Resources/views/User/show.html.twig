@@ -27,31 +27,55 @@
                 <th>Nachname</th>
                 <td>{{ entity.nachname }}</td>
             </tr>
+            {% set totalwin,totaleven,totalloss = 0,0,0 %}
+            
             {% for a in entity.armeen %}
-            {% set total = a.win+a.loss+a.even %}
-            {% if total != 0 %}
-	            {% set wintotal = (100 * a.win)/total %}
-	            {% set losstotal = 100 - (100 * a.loss)/total %}
-	            <style type="text/css">
-	            .standing-{{ a.id }} {
-	            	width: 240px;
-	            	height: 30px;
-	            	background: #8fc800; /* Old browsers */
-								background: -moz-linear-gradient(left,  #8fc800 0%, #c6c000 {{ wintotal }}%, #c6c000 {{ losstotal }}%, #c60000 100%); /* FF3.6+ */
-								background: -webkit-gradient(linear, left top, right top, color-stop(0%,#8fc800), color-stop({{ wintotal }}%,#c6c000), color-stop({{ losstotal }}%,#c6c000), color-stop(100%,#c60000)); /* Chrome,Safari4+ */
-								background: -webkit-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* Chrome10+,Safari5.1+ */
-								background: -o-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* Opera 11.10+ */
-								background: -ms-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* IE10+ */
-								background: linear-gradient(to right,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* W3C */
-								filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8fc800', endColorstr='#c60000',GradientType=1 ); /* IE6-9 */
-	            }
-	            </style>
-	            <tr>
-	                <th>Ergebnis</th>
-	                <td class="standing-{{ a.id }}">{{ a.win }}-{{ a.even }}-{{ a.loss }}</td>
-	            </tr>
-	          {% endif %}
+            	{% set totalwin,totaleven,totalloss  = totalwin + a.win,totaleven + a.even,totalloss + a.loss %}
+	            {% set total = a.win+a.loss+a.even %}
+	            {% if total != 0 %}
+		            {% set wintotal = (100 * a.win)/total %}
+		            {% set losstotal = 100 - (100 * a.loss)/total %}
+		            <style type="text/css">
+		            .standing-{{ a.id }} {
+		            	width: 240px;
+		            	height: 30px;
+		            	background: #8fc800; /* Old browsers */
+									background: -moz-linear-gradient(left,  #8fc800 0%, #c6c000 {{ wintotal }}%, #c6c000 {{ losstotal }}%, #c60000 100%); /* FF3.6+ */
+									background: -webkit-gradient(linear, left top, right top, color-stop(0%,#8fc800), color-stop({{ wintotal }}%,#c6c000), color-stop({{ losstotal }}%,#c6c000), color-stop(100%,#c60000)); /* Chrome,Safari4+ */
+									background: -webkit-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* Chrome10+,Safari5.1+ */
+									background: -o-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* Opera 11.10+ */
+									background: -ms-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* IE10+ */
+									background: linear-gradient(to right,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* W3C */
+									filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8fc800', endColorstr='#c60000',GradientType=1 ); /* IE6-9 */
+		            }
+		            </style>
+		            <tr>
+		                <th>Ergebnis ({{ a.name }})</th>
+		                <td class="standing-{{ a.id }}">{{ a.win }}-{{ a.even }}-{{ a.loss }}</td>
+		            </tr>
+		          {% endif %}
             {% endfor %}
+            <tr>
+            		{% set totalall = totalwin + totaleven + totalloss %}
+            	  {% set wintotal = (100 * totalwin)/totalall %}
+		            {% set losstotal = 100 - (100 * totalloss)/totalall %}
+		            <style type="text/css">
+		            .standing-total {
+		            	width: 240px;
+		            	height: 30px;
+		            	background: #8fc800; /* Old browsers */
+									background: -moz-linear-gradient(left,  #8fc800 0%, #c6c000 {{ wintotal }}%, #c6c000 {{ losstotal }}%, #c60000 100%); /* FF3.6+ */
+									background: -webkit-gradient(linear, left top, right top, color-stop(0%,#8fc800), color-stop({{ wintotal }}%,#c6c000), color-stop({{ losstotal }}%,#c6c000), color-stop(100%,#c60000)); /* Chrome,Safari4+ */
+									background: -webkit-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* Chrome10+,Safari5.1+ */
+									background: -o-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* Opera 11.10+ */
+									background: -ms-linear-gradient(left,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* IE10+ */
+									background: linear-gradient(to right,  #8fc800 0%,#c6c000 {{ wintotal }}%,#c6c000 {{ losstotal }}%,#c60000 100%); /* W3C */
+									filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8fc800', endColorstr='#c60000',GradientType=1 ); /* IE6-9 */
+		            }
+		            </style>
+		            <th>Ergebnis (insgesamt)</th>
+		            <td class="standing-total">{{ totalwin }}-{{ totaleven }}-{{ totalloss }}</td>
+		        </tr>
         </tbody>
     </table>
 
