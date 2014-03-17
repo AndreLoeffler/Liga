@@ -29,6 +29,11 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BinaerpilotenLigaBundle:User')->findAll();
+        uasort($entities, function($a, $b) {
+											    	if ($a->evaluateRank() == $b->evaluateRank()) return 0;
+											    	return ($a->evaluateRank() < $b->evaluateRank()) ? 1 : -1;
+											    }
+				);
 
         return array(
             'entities' => $entities,
@@ -56,4 +61,7 @@ class UserController extends Controller
             'entity'      => $entity,
         );
     }
+    
+    /* =========================== Helpers here ========================== */
+    
 }

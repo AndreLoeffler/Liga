@@ -12,6 +12,7 @@
                 <th>Vorname</th>
                 <th>Nachname</th>
                 <th>Lastlogin</th>
+                <th>Bewertung</th>
                 <th></th>
             </tr>
         </thead>
@@ -24,6 +25,7 @@
                 <td>{{ entity.vorname }}</td>
                 <td>{{ entity.nachname }}</td>
                 <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('d.m.Y') }}{% endif %}</td>
+                <td>{{ entity.evaluateRank }}</td>
                 {% if app.user.username != entity.username %}
                 	<td><a href="{{ path('spiel_new', { 'name': entity.username }) }}">neues Spiel</td>
                 {% endif %}

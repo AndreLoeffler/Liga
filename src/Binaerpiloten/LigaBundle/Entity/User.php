@@ -156,5 +156,33 @@ class User extends BaseUser
     {
         return $this->armeen;
     }
+    
+    public function getWins() {
+    	$win = 0;
+    	foreach ($this->armeen as $a) {
+    		$win += $a->getWin();
+    	}
+    	return $win;
+    }
+    public function getEvens() {
+    	$even = 0;
+    	foreach ($this->armeen as $a) {
+    		$even += $a->getEven();
+    	}
+    	return $even;
+    }
+    public function getLosses() {
+    	$loss = 0;
+    	foreach ($this->armeen as $a) {
+    		$loss += $a->getLoss();
+    	}
+    	return $loss;
+    }
+    
+    public function evaluateRank() {
+    		$win = $this->getWins();
+    		$even = $this->getEvens();
+    		return (1+ $win +( $even / 2 )) / ( 2 + $win + $even + $this->getLosses());
+    }
 
 }
