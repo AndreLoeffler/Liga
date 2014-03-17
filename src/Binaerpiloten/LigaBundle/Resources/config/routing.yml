@@ -13,3 +13,7 @@ spiel:
 user:
     resource: "@BinaerpilotenLigaBundle/Controller/UserController.php"
     type: annotation
+    
+volk:
+    resource: "@BinaerpilotenLigaBundle/Controller/VolkController.php"
+    type: annotation

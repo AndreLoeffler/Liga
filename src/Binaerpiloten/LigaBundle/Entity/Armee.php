@@ -42,6 +42,12 @@ class Armee
     protected $user;
     
     /**
+     * @ORM\ManyToOne(targetEntity="Volk", inversedBy="armee")
+     * @ORM\JoinColumn(name="volk_id", referencedColumnName="id")
+     */
+    protected $volk;
+    
+    /**
      * @var integer
      *
      * @ORM\Column(name="win", type="integer")
@@ -224,4 +230,37 @@ class Armee
     	$this->loss++;
     }
     
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+
+
+
+
+    /**
+     * Set volk
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\Volk $volk
+     * @return Armee
+     */
+    public function setVolk(\Binaerpiloten\LigaBundle\Entity\Volk $volk = null)
+    {
+        $this->volk = $volk;
+
+        return $this;
+    }
+
+    /**
+     * Get volk
+     *
+     * @return \Binaerpiloten\LigaBundle\Entity\Volk 
+     */
+    public function getVolk()
+    {
+        return $this->volk;
+    }
 }

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ArmeeType extends AbstractType
+class VolkType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -16,8 +16,6 @@ class ArmeeType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('beschreibung')
-            ->add('volk')
         ;
     }
     
@@ -27,7 +25,7 @@ class ArmeeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Binaerpiloten\LigaBundle\Entity\Armee'
+            'data_class' => 'Binaerpiloten\LigaBundle\Entity\Volk'
         ));
     }
 
@@ -36,6 +34,6 @@ class ArmeeType extends AbstractType
      */
     public function getName()
     {
-        return 'binaerpiloten_ligabundle_armee';
+        return 'binaerpiloten_ligabundle_volk';
     }
 }
