@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Validator\Constraints\DateTime;
 
-class FilterType extends AbstractType
+class SpielFilterType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -47,7 +47,7 @@ class FilterType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Binaerpiloten\LigaBundle\Entity\Filter'
+            'data_class' => 'Binaerpiloten\LigaBundle\Entity\SpielFilter'
         ));
     }
 

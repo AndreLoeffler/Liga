@@ -7,27 +7,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Binaerpiloten\LigaBundle\Entity\Filter;
-use Binaerpiloten\LigaBundle\Form\FilterType;
+use Binaerpiloten\LigaBundle\Entity\SpielFilter;
+use Binaerpiloten\LigaBundle\Form\SpielFilterType;
 
 /**
- * Filter controller.
+ * SpielFilter controller.
  *
- * @Route("/filter")
+ * @Route("/spielfilter")
  */
-class FilterController extends Controller
+class SpielFilterController extends Controller
 {
 
     /**
-     * Creates a new Filter entity.
+     * Creates a new SpielFilter entity.
      *
-     * @Route("/", name="filter_create")
+     * @Route("/", name="spielfilter_create")
      * @Method("POST")
-     * @Template("BinaerpilotenLigaBundle:Filter:new.html.twig")
+     * @Template("BinaerpilotenLigaBundle:SpielFilter:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Filter();
+        $entity = new SpielFilter();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -43,16 +43,16 @@ class FilterController extends Controller
     }
 
     /**
-    * Creates a form to create a Filter entity.
+    * Creates a form to create a SpielFilter entity.
     *
-    * @param Filter $entity The entity
+    * @param SpielFilter $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Filter $entity)
+    private function createCreateForm(SpielFilter $entity)
     {
-        $form = $this->createForm(new FilterType(), $entity, array(
-            'action' => $this->generateUrl('filter_create'),
+        $form = $this->createForm(new SpielFilterType(), $entity, array(
+            'action' => $this->generateUrl('spielfilter_create'),
             'method' => 'POST',
         ));
 
@@ -62,15 +62,15 @@ class FilterController extends Controller
     }
 
     /**
-     * Displays a form to create a new Filter entity.
+     * Displays a form to create a new SpielFilter entity.
      *
-     * @Route("/new", name="filter_new")
+     * @Route("/new", name="spielfilter_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Filter();
+        $entity = new SpielFilter();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -84,7 +84,7 @@ class FilterController extends Controller
     /**
      * Displays list of matches filtered by Filter-object.
      */
-    private function displayResults(Filter $filter) {
+    private function displayResults(SpielFilter $filter) {
     	
     	$em = $this->getDoctrine()->getManager();
     	
@@ -108,8 +108,7 @@ class FilterController extends Controller
     		}
     	}
     	
-    	return $this->render(
-    			'BinaerpilotenLigaBundle:Spiel:index.html.twig',
+    	return $this->render('BinaerpilotenLigaBundle:Spiel:index.html.twig',
     			array('entities' => $entities)
     	);
     	

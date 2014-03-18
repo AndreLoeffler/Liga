@@ -4,7 +4,7 @@ namespace Binaerpiloten\LigaBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class FilterControllerTest extends WebTestCase
+class SpielFilterControllerTest extends WebTestCase
 {
     /*
     public function testCompleteScenario()

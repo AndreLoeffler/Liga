@@ -18,6 +18,6 @@ volk:
     resource: "@BinaerpilotenLigaBundle/Controller/VolkController.php"
     type: annotation
     
-filter:
-    resource: "@BinaerpilotenLigaBundle/Controller/FilterController.php"
+spielfilter:
+    resource: "@BinaerpilotenLigaBundle/Controller/SpielFilterController.php"
     type: annotation    

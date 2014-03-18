@@ -5,12 +5,12 @@ namespace Binaerpiloten\LigaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Filter
+ * SpielFilter
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Filter
+class SpielFilter
 {
     /**
      * @var integer
@@ -54,7 +54,7 @@ class Filter
      * Set year
      *
      * @param integer $year
-     * @return Filter
+     * @return SpielFilter
      */
     public function setYear($year)
     {
@@ -77,7 +77,7 @@ class Filter
      * Set volk
      *
      * @param \Binaerpiloten\LigaBundle\Entity\Volk $volk
-     * @return Filter
+     * @return SpielFilter
      */
     public function setVolk(\Binaerpiloten\LigaBundle\Entity\Volk $volk = null)
     {
@@ -100,7 +100,7 @@ class Filter
      * Set spieler
      *
      * @param \Binaerpiloten\LigaBundle\Entity\User $spieler
-     * @return Filter
+     * @return SpielFilter
      */
     public function setSpieler(\Binaerpiloten\LigaBundle\Entity\User $spieler = null)
     {
