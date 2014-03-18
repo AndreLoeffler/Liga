@@ -62,6 +62,15 @@ class User extends BaseUser
     private $armeen;
     
     /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="id")
+     * @ORM\JoinTable(name="user_has_friend",
+ 		 *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="friend_id", referencedColumnName="id")}
+     *      )
+     */
+    private $freunde;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -185,4 +194,37 @@ class User extends BaseUser
     		return (1+ $win +( $even / 2 )) / ( 2 + $win + $even + $this->getLosses());
     }
 
+
+    /**
+     * Add freunde
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\User $freunde
+     * @return User
+     */
+    public function addFreunde(\Binaerpiloten\LigaBundle\Entity\User $freunde)
+    {
+        $this->freunde[] = $freunde;
+
+        return $this;
+    }
+
+    /**
+     * Remove freunde
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\User $freunde
+     */
+    public function removeFreunde(\Binaerpiloten\LigaBundle\Entity\User $freunde)
+    {
+        $this->freunde->removeElement($freunde);
+    }
+
+    /**
+     * Get freunde
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFreunde()
+    {
+        return $this->freunde;
+    }
 }

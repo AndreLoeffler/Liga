@@ -3,23 +3,21 @@
 {% block content %}
     <h1>User list</h1>
 
-    <table class="records_list">
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Username</th>
                 <th>Email</th>
                 <th>Vorname</th>
                 <th>Nachname</th>
                 <th>Lastlogin</th>
                 <th>Bewertung</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
+        	{% set friend = not (entity in app.user.getFreunde) %}
             <tr>
-                <td>{{ entity.id }}</td>
                 <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.username }}</a></td>
                 <td>{{ entity.email }}</td>
                 <td>{{ entity.vorname }}</td>
@@ -27,7 +25,8 @@
                 <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('d.m.Y') }}{% endif %}</td>
                 <td>{{ entity.evaluateRank }}</td>
                 {% if app.user.username != entity.username %}
-                	<td><a href="{{ path('spiel_new', { 'name': entity.username }) }}">neues Spiel</td>
+                	<td><a href="{{ path('spiel_new', { 'name': entity.username }) }}"><span title="Neues Spiel" class="glyphicon glyphicon-screenshot"></span></td>
+                	{% if friend %}<td><a href="{{ path('user_friend', { 'id': entity.id }) }}"><span title="Freund hinzufügen" class="glyphicon glyphicon-plus"></span></td>{% endif %}
                 {% endif %}
             </tr>
         {% endfor %}

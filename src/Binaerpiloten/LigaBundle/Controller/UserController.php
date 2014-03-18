@@ -61,7 +61,45 @@ class UserController extends Controller
             'entity'      => $entity,
         );
     }
+    /**
+     * Finds and displays a User entity.
+     *
+     * @Route("/friend/{id}", name="user_friend")
+     * @Method("GET")
+     * @Template()
+     */
+    public function newFriendAction($id) {
+    	
+    	$em = $this->getDoctrine()->getManager();
+    	
+    	$user = $this->getUser();
+    	$friend =$em->getRepository('BinaerpilotenLigaBundle:User')->find($id);
+    	
+			$user->addFreunde($friend);
+			$em->flush();
+			
+			return $this->redirect($this->generateUrl('user_show', array('id' => $user->GetId())));
+    }
     
+    /**
+     * Finds and displays a User entity.
+     *
+     * @Route("/unfriend/{id}", name="user_unfriend")
+     * @Method("GET")
+     * @Template()
+     */
+    public function removeFriendAction($id) {
+    	 
+    	$em = $this->getDoctrine()->getManager();
+    	 
+    	$user = $this->getUser();
+    	$friend =$em->getRepository('BinaerpilotenLigaBundle:User')->find($id);
+    	 
+    	$user->removeFreunde($friend);
+    	$em->flush();
+    		
+    	return $this->redirect($this->generateUrl('user_show', array('id' => $user->GetId())));
+    }
     /* =========================== Helpers here ========================== */
     
 }
