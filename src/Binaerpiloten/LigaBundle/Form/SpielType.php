@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Binaerpiloten\LigaBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class SpielType extends AbstractType
 {
@@ -33,7 +34,7 @@ class SpielType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('datum')
+            ->add('datum','date',array('data' => new \DateTime()))
             ->add('mission', 'choice', array(
             		'choices' => $this->getMissionConstants()))
             ->add('youpunkte')
