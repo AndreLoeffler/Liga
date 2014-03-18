@@ -10,6 +10,10 @@
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
+                <th>Volk</th>
+                <td>{{ entity.volk }}</td>
+            </tr>
+            <tr>
                 <th>Beschreibung</th>
                 <td>{{ entity.beschreibung }}</td>
             </tr>
@@ -31,9 +35,6 @@
     </table>
 
 <ul class="record_actions">
-    <li>
-        <a href="{{ path('armee') }}">Back to the list</a>
-    </li>
    	{% if entity.user.id == app.user.id %}
     <li>
         <a href="{{ path('armee_edit', { 'id': entity.id }) }}">Edit</a>

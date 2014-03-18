@@ -62,13 +62,19 @@ class User extends BaseUser
     private $armeen;
     
     /**
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="id")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="friendsWithMe")
      * @ORM\JoinTable(name="user_has_friend",
  		 *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="friend_id", referencedColumnName="id")}
      *      )
      */
     private $freunde;
+    
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="freunde")
+     */
+    private $friendsWithMe;
     
     /**
      * Get id
@@ -131,6 +137,8 @@ class User extends BaseUser
     	parent::__construct();
     	
     	$this->armeen = new ArrayCollection();
+    	$this->freunde = new ArrayCollection();
+    	$this->friendsWithMe = new ArrayCollection();
     }
 
     /**
@@ -226,5 +234,38 @@ class User extends BaseUser
     public function getFreunde()
     {
         return $this->freunde;
+    }
+
+    /**
+     * Add friendsWithMe
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\User $friendsWithMe
+     * @return User
+     */
+    public function addFriendsWithMe(\Binaerpiloten\LigaBundle\Entity\User $friendsWithMe)
+    {
+        $this->friendsWithMe[] = $friendsWithMe;
+
+        return $this;
+    }
+
+    /**
+     * Remove friendsWithMe
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\User $friendsWithMe
+     */
+    public function removeFriendsWithMe(\Binaerpiloten\LigaBundle\Entity\User $friendsWithMe)
+    {
+        $this->friendsWithMe->removeElement($friendsWithMe);
+    }
+
+    /**
+     * Get friendsWithMe
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFriendsWithMe()
+    {
+        return $this->friendsWithMe;
     }
 }
