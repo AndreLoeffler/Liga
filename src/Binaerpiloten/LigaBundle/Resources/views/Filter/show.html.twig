@@ -1,0 +1,40 @@
+{% extends 'BinaerpilotenLigaBundle::base.html.twig' %}
+
+{% block content %}
+    <h1>Filter</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ entity.year }}</td>
+            </tr>
+            <tr>
+                <th>Volk</th>
+                <td>{{ entity.volk }}</td>
+            </tr>
+            <tr>
+                <th>spieler</th>
+                <td>{{ entity.spieler }}</td>
+            </tr>            
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('filter') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('filter_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

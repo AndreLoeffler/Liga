@@ -67,7 +67,13 @@
     <h2>Freunde:</h2>
     <ul>
     	{% for f in entity.freunde %}
-    		<li>{{ f.username }}{% if self %} - <a href="{{ path('user_unfriend', {'id': f.id}) }}"><span title="Freund entfernen" class="glyphicon glyphicon-remove"></span></a>{% endif %}</li>
+    		<li>
+    			<a href="{{ path('user_show', {'id': f.id }) }}">{{ f.username }}</a>
+    			{% if self %}
+    				 - <a href="{{ path('user_unfriend', {'id': f.id}) }}"><span title="Freund entfernen" class="glyphicon glyphicon-remove"></span></a>
+    				 - <a href="{{ path('spiel_new', { 'name': f.username }) }}"><span title="Neues Spiel" class="glyphicon glyphicon-screenshot"></span></a>
+    			{% endif %}
+    		</li>
     	{% endfor %}
     </ul>
 	</div>

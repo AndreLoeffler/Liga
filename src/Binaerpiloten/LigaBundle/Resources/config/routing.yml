@@ -17,3 +17,7 @@ user:
 volk:
     resource: "@BinaerpilotenLigaBundle/Controller/VolkController.php"
     type: annotation
+    
+filter:
+    resource: "@BinaerpilotenLigaBundle/Controller/FilterController.php"
+    type: annotation    
