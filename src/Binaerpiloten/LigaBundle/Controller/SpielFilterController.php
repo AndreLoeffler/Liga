@@ -108,6 +108,21 @@ class SpielFilterController extends Controller
     		}
     	}
     	
+    	if ($filter->getSpieler() != null || $filter->getSpieler2() != null) {
+    		$spieler = array();
+    		if ($a = $filter->getSpieler()) $spieler[] = $a;
+    		if ($a = $filter->getSpieler2()) $spieler[] = $a;
+    		foreach ($entities as $k=>$e) {
+					if (sizeof($spieler) > 1) {
+						if (!in_array($e->getYou(),$spieler) || !in_array($e->getEnemy(),$spieler))
+							unset($entities[$k]);
+					} else {
+						if (!in_array($e->getYou(),$spieler) && !in_array($e->getEnemy(),$spieler))
+							unset($entities[$k]);
+					}   			
+    		}
+    	}
+    	
     	return $this->render('BinaerpilotenLigaBundle:Spiel:index.html.twig',
     			array('entities' => $entities)
     	);

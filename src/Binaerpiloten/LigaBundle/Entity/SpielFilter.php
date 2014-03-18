@@ -41,6 +41,12 @@ class SpielFilter
     protected $spieler;
     
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="filter")
+     * @ORM\JoinColumn(name="user2_id", referencedColumnName="id", nullable=true)
+     */
+    protected $spieler2;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -117,5 +123,28 @@ class SpielFilter
     public function getSpieler()
     {
         return $this->spieler;
+    }
+
+    /**
+     * Set spieler2
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\User $spieler2
+     * @return SpielFilter
+     */
+    public function setSpieler2(\Binaerpiloten\LigaBundle\Entity\User $spieler2 = null)
+    {
+        $this->spieler2 = $spieler2;
+
+        return $this;
+    }
+
+    /**
+     * Get spieler2
+     *
+     * @return \Binaerpiloten\LigaBundle\Entity\User 
+     */
+    public function getSpieler2()
+    {
+        return $this->spieler2;
     }
 }
