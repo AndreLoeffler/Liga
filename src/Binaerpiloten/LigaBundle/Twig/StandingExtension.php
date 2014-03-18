@@ -15,6 +15,7 @@ class StandingExtension extends \Twig_Extension {
     	$ret = ".standing-".$name." {";
     	$ret .= "	width: 240px;";
     	$ret .= "	height: 30px;";
+    	$ret .= "	text-align: center;";
     	$ret .= "	background: #8fc800; /* Old browsers */";
     	$ret .= "	background: -moz-linear-gradient(left,  #8fc800 0%, #c6c000 ".$wintotal."%, #c6c000 ".$losstotal."%, #c60000 100%); /* FF3.6+ */";
     	$ret .= "	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#8fc800), color-stop(".$wintotal."%,#c6c000), color-stop(".$losstotal."%,#c6c000), color-stop(100%,#c60000)); /* Chrome,Safari4+ */";
