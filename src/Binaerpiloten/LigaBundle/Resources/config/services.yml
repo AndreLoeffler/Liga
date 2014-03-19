@@ -36,3 +36,13 @@ services:
         arguments: [  ]
         tags:
             - { name: twig.extension }
+    binaerpiloten.twig.dragdropjs_extension:
+        class: Binaerpiloten\LigaBundle\Twig\DragDropJSExtension
+        arguments: [  ]
+        tags:
+            - { name: twig.extension }
+    binaerpiloten.twig.dragdropcss_extension:
+        class: Binaerpiloten\LigaBundle\Twig\DragDropCSSExtension
+        arguments: [  ]
+        tags:
+            - { name: twig.extension }            

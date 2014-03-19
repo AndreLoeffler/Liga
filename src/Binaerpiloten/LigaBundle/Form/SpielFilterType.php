@@ -19,7 +19,7 @@ class SpielFilterType extends AbstractType
     		$date = new \DateTime();
     	
         $builder
-            ->add('year','integer',array('data'=> $date->format('Y'), 'required' => false,))
+            ->add('year','integer',array('required' => false,))
             ->add('volk','entity',array(
         			'multiple' => false,
             	'expanded' => true,

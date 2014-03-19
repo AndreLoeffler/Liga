@@ -1,6 +1,5 @@
 <script type="text/javascript">
 $(function  () {
-var adjustment
 
 $("ol.target").sortable({
   group: 'simple_with_animation',
@@ -16,46 +15,19 @@ $("ol.target").sortable({
       clonedItem.detach()
       _super(item)
     })
-  },
-
-  // set item relative to cursor position
-  onDragStart: function ($item, container, _super) {
-    var offset = $item.offset(),
-    pointer = container.rootGroup.pointer
-
-    adjustment = {
-      left: pointer.left - offset.left,
-      top: pointer.top - offset.top
-    }
-
-    _super($item, container)
-  },
-  onDrag: function ($item, position) {
-    $item.css({
-      left: position.left - adjustment.left,
-      top: position.top - adjustment.top
-    })
   }
 })
-
-$("ol.source-test").sortable({
-  group: 'simple_with_animation',
-  pullPlaceholder: false,
-  drop: false,
-
-  // set item relative to cursor position
-  onDragStart: function ($item, container, _super) {
-    var offset = $item.offset(),
-    pointer = container.rootGroup.pointer
-
-    adjustment = {
-      left: pointer.left - offset.left,
-      top: pointer.top - offset.top
-    }
-
-    _super($item, container)
-  }
-})
-
 })
 </script>
+
+<style type="text/css">
+ol.target li.placeholder {
+	position: relative;
+  /** More li styles **/
+ }
+ol.target li.placeholder:before {
+	position: absolute;\n
+	/** Define arrowhead **/
+}
+</style>
+

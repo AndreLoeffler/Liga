@@ -7,10 +7,6 @@
 	{% include "BinaerpilotenLigaBundle:Form:dragndrop.js.html.twig" %}
 {% endblock %}
 
-{% block tplstyle %}
-	{% include "BinaerpilotenLigaBundle:Form:dragndrop.css.html.twig" %}
-{% endblock %}
-
 {% block content %}
 <h1>Filter creation</h1>
 {{ form_start(form) }}
@@ -25,8 +21,14 @@
 	<h2>Die Spieler</h2>
 	<div class="row">
 		<div class="col-md-6">
-			<h3>Spieler 1</h3>
+	    <ol class="target list-group" style="min-height: 1000px;">
+	    	<span class="list-group-item">Gewählte Filter</span>
+	    </ol>
+		</div>
+		
+		<div class="col-md-6">
 			<div class="well">
+				<h3>Spieler 1</h3>
 				{{ form_label(form.spieler, "erster Spieler:") }}
 				{{ form_errors(form.spieler) }}
 				{{ form_widget(form.spieler) }}
@@ -35,11 +37,8 @@
 				{{ form_errors(form.volk) }}
 				{{ form_widget(form.volk) }}
 			</div>
-		</div>
-		
-		<div class="col-md-6">
-			<h3>Spieler 2</h3>
 			<div class="well">
+				<h3>Spieler 2</h3>
 				{{ form_label(form.spieler2, "zweiter Spieler:") }}
 				{{ form_errors(form.spieler2) }}
 				{{ form_widget(form.spieler2) }}
@@ -52,25 +51,5 @@
 	</div>
 	
 {{ form_end(form) }}
-
-
-<div class="row">
-	<div class="col-md-4">
-    <ol class="target list-group">
-    	<span class="list-group-item">Gewählte Filter</span>
-    </ol>
-  </div>
-  <div class="col-md-4">
-    <ol class="source-test list-group">
-      <li class="list-group-item">Item 1a</li>
-      <li class="list-group-item">Item 2a</li>
-      <li class="list-group-item">Item 3a</li>
-      <li class="list-group-item">Item 4a</li>
-      <li class="list-group-item">Item 5a</li>
-      <li class="list-group-item">Item 6a</li>
-    </ol>
-  </div>
-</div>
-
 
 {% endblock %}
