@@ -1,0 +1,21 @@
+{% block integer_widget %}
+    {% set type = type|default('number') %}
+    {{ block('form_widget_simple') }}
+{% endblock integer_widget %}
+
+{% block form_widget_simple %}
+    {% set type = type|default('text') %}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{% endblock form_widget_simple %}
+
+{% block choice_widget_expanded %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+    <ul>
+    {% for child in form %}
+        <li>{{ form_widget(child) }} {{ form_label(child) }}</li>
+    {% endfor %}
+    </ul>
+    </div>
+{% endspaceless %}
+{% endblock choice_widget_expanded %}

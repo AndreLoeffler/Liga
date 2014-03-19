@@ -29,6 +29,15 @@ class SpielFilterType extends AbstractType
         						return $er->createQueryBuilder('pp');
         					},
         			))
+        		->add('volk2','entity',array(
+        			'multiple' => false,
+        			'expanded' => true,
+        			'required' => false,
+        			'class' => 'BinaerpilotenLigaBundle:Volk',
+        			'query_builder' => function(EntityRepository $er) {
+        						return $er->createQueryBuilder('pp');
+        					},
+        			))        			
         		->add('spieler','entity',array(
         			'multiple' => false,
             	'expanded' => true,

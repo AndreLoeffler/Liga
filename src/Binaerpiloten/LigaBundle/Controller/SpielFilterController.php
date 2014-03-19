@@ -99,12 +99,18 @@ class SpielFilterController extends Controller
     		}
     	}
     	
-    	if ($filter->getVolk() != null) {
-    		$volk = $filter->getVolk();
+        	if ($filter->getVolk() != null || $filter->getVolk2() != null) {
+    		$voelker = array();
+    		if ($a = $filter->getVolk()) $voelker[] = $a;
+    		if ($a = $filter->getVolk2()) $voelker[] = $a;
     		foreach ($entities as $k=>$e) {
-    			if($e->getYouarmee()->getVolk() != $volk && $e->getEnemyarmee()->getVolk() != $volk) {
-    				unset($entities[$k]);
-    			}
+					if (sizeof($voelker) > 1) {
+						if (!in_array($e->getYouarmee()->getVolk(),$voelker) || !in_array($e->getEnemyarmee()->getVolk(),$voelker))
+							unset($entities[$k]);
+					} else {
+						if (!in_array($e->getYouarmee()->getVolk(),$voelker) && !in_array($e->getEnemyarmee()->getVolk(),$voelker))
+							unset($entities[$k]);
+					}   			
     		}
     	}
     	
