@@ -89,18 +89,20 @@ class SpielFilterController extends Controller
 
     	$repository = $this->getDoctrine()->getRepository('BinaerpilotenLigaBundle:Spiel');
     	$query = $repository->createQueryBuilder('s');
+    	$parameters = array();
     	
     	if ($filter->getYear() != null) {
     		$year = $filter->getYear();
-    		$query->where($query->expr()->between('s.datum',':from0',':to0'));
-    		$query->setParameter(':from0', new \DateTime($year[0]."-01-01"));
-    		$query->setParameter(':to0', new \DateTime($year[0]."-12-31"));
+    		
+    		$query->andWhere($query->expr()->between('s.datum',':from0',':to0'));
+    		$parameters[':from0'] = new \DateTime($year[0].'-01-01');
+    		$parameters[':to0'] = new \DateTime($year[0].'-12-31');
     		unset($year[0]);
     		foreach ($year as $key=>$y) {
     			$k = $key+1;
     			$query->orWhere($query->expr()->between('s.datum',':from'.$k,':to'.$k));
-    			$query->setParameter(':from'.$k, new \DateTime($y."-01-01"));
-    			$query->setParameter(':to'.$k, new \DateTime($y."-12-31"));
+    			$parameters[':from'.$k] = new \DateTime($y.'-01-01');
+    			$parameters[':to'.$k] = new \DateTime($y.'-12-31');
     		}
     	}
     	
@@ -112,20 +114,20 @@ class SpielFilterController extends Controller
     	
     	if ($filter->getSpieler() != null) {
     		$spieler = $filter->getSpieler()->toArray();
+    		
     		if (sizeof($spieler) == 1) {
-    			$query->where('s.you = :you');
-    			$query->orWhere('s.enemy = :you');
-    			$query->setParameter(':you', $spieler[0]);
+    			$query->andWhere('s.you = :you or s.enemy = :you');
+    			$parameters[':you'] = $spieler[0];
     		}
     		if (sizeof($spieler) > 1) {
-    			$query->where('s.you = :you and s.enemy = :enemy');
+    			$query->andWhere('s.you = :you and s.enemy = :enemy');
     			$query->orWhere('s.enemy = :you and s.you = :enemy');
-    			$query->setParameter(':you', $spieler[0]);
-    			$query->setParameter(':enemy', $spieler[1]);
+    			$parameters[':you'] = $spieler[0];
+    			$parameters[':enemy'] = $spieler[1];
     		}
     	}
     	
-    	
+    	$query->setParameters($parameters);
     	$entities = $query->getQuery()->getResult();
     	
     	
