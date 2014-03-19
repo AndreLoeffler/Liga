@@ -10,42 +10,40 @@
 {% block content %}
 <h1>Filter creation</h1>
 {{ form_start(form) }}
-	{{ form_errors(form) }}
 
 	<div>
-		{{ form_label(form.year, "Nach Jahr:") }}
+		{{ form_errors(form) }}
 		{{ form_errors(form.year) }}
-		{{ form_widget(form.year) }}
+		{{ form_errors(form.spieler) }}
+		{{ form_errors(form.volk) }}
 	</div>
 	
 	<h2>Die Spieler</h2>
 	<div class="row">
 		<div class="col-md-6">
-	    <ol class="target list-group" style="min-height: 1000px;">
+	    <ol class="target list-group" style="min-height: 500px;">
 	    	<span class="list-group-item">Gewählte Filter</span>
 	    </ol>
 		</div>
 		
 		<div class="col-md-6">
 			<div class="well">
-				<h3>Spieler 1</h3>
-				{{ form_label(form.spieler, "erster Spieler:") }}
-				{{ form_errors(form.spieler) }}
-				{{ form_widget(form.spieler) }}
-				
-				{{ form_label(form.volk, "Nach Volk:") }}
-				{{ form_errors(form.volk) }}
-				{{ form_widget(form.volk) }}
-			</div>
-			<div class="well">
-				<h3>Spieler 2</h3>
-				{{ form_label(form.spieler2, "zweiter Spieler:") }}
-				{{ form_errors(form.spieler2) }}
-				{{ form_widget(form.spieler2) }}
-				
-				{{ form_label(form.volk2, "Nach Volk:") }}
-				{{ form_errors(form.volk2) }}
-				{{ form_widget(form.volk2) }}
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#spieler" data-toggle="tab">Spieler</a></li>
+					<li><a href="#volk" data-toggle="tab">Volk</a></li>
+					<li><a href="#year" data-toggle="tab">Jahr</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="spieler">
+						{{ form_widget(form.spieler) }}
+					</div>
+					<div class="tab-pane" id="volk">	
+						{{ form_widget(form.volk) }}
+					</div>
+					<div class="tab-pane" id="year">
+						{{ form_widget(form.year) }}
+					</div>	
+				</div>
 			</div>
 		</div>
 	</div>

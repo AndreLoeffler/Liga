@@ -51,7 +51,7 @@ class SpielFilterController extends Controller
     */
     private function createCreateForm(SpielFilter $entity)
     {
-        $form = $this->createForm(new SpielFilterType(), $entity, array(
+        $form = $this->createForm(new SpielFilterType($this->getDoctrine()->getManager()), $entity, array(
             'action' => $this->generateUrl('spielfilter_create'),
             'method' => 'POST',
         ));
@@ -85,45 +85,58 @@ class SpielFilterController extends Controller
      * Displays list of matches filtered by Filter-object.
      */
     private function displayResults(SpielFilter $filter) {
-    	
     	$em = $this->getDoctrine()->getManager();
-    	
-    	$entities = $em->getRepository('BinaerpilotenLigaBundle:Spiel')->findAll();
+
+    	$repository = $this->getDoctrine()->getRepository('BinaerpilotenLigaBundle:Spiel');
+    	$query = $repository->createQueryBuilder('s');
     	
     	if ($filter->getYear() != null) {
     		$year = $filter->getYear();
-    		foreach ($entities as $k=>$e) {
-    			if($e->getDatum()->format('Y') != $year) {
-    				unset($entities[$k]);
-    			}
+    		$query->where($query->expr()->between('s.datum',':from0',':to0'));
+    		$query->setParameter(':from0', new \DateTime($year[0]."-01-01"));
+    		$query->setParameter(':to0', new \DateTime($year[0]."-12-31"));
+    		unset($year[0]);
+    		foreach ($year as $key=>$y) {
+    			$k = $key+1;
+    			$query->orWhere($query->expr()->between('s.datum',':from'.$k,':to'.$k));
+    			$query->setParameter(':from'.$k, new \DateTime($y."-01-01"));
+    			$query->setParameter(':to'.$k, new \DateTime($y."-12-31"));
     		}
     	}
     	
-        	if ($filter->getVolk() != null || $filter->getVolk2() != null) {
-    		$voelker = array();
-    		if ($a = $filter->getVolk()) $voelker[] = $a;
-    		if ($a = $filter->getVolk2()) $voelker[] = $a;
+    	if ($filter->getVolk() != null) {
+    		$voelker = $filter->getVolk()->toArray();
+    		if (sizeof($voelker) == 1) {
+    		}
+    	}
+    	
+    	if ($filter->getSpieler() != null) {
+    		$spieler = $filter->getSpieler()->toArray();
+    		if (sizeof($spieler) == 1) {
+    			$query->where('s.you = :you');
+    			$query->orWhere('s.enemy = :you');
+    			$query->setParameter(':you', $spieler[0]);
+    		}
+    		if (sizeof($spieler) > 1) {
+    			$query->where('s.you = :you and s.enemy = :enemy');
+    			$query->orWhere('s.enemy = :you and s.you = :enemy');
+    			$query->setParameter(':you', $spieler[0]);
+    			$query->setParameter(':enemy', $spieler[1]);
+    		}
+    	}
+    	
+    	
+    	$entities = $query->getQuery()->getResult();
+    	
+    	
+      if ($filter->getVolk() != null) {
+    		$voelker = $filter->getVolk()->toArray();
     		foreach ($entities as $k=>$e) {
 					if (sizeof($voelker) > 1) {
 						if (!in_array($e->getYouarmee()->getVolk(),$voelker) || !in_array($e->getEnemyarmee()->getVolk(),$voelker))
 							unset($entities[$k]);
-					} else {
+					} else if (sizeof($voelker) == 1) {
 						if (!in_array($e->getYouarmee()->getVolk(),$voelker) && !in_array($e->getEnemyarmee()->getVolk(),$voelker))
-							unset($entities[$k]);
-					}   			
-    		}
-    	}
-    	
-    	if ($filter->getSpieler() != null || $filter->getSpieler2() != null) {
-    		$spieler = array();
-    		if ($a = $filter->getSpieler()) $spieler[] = $a;
-    		if ($a = $filter->getSpieler2()) $spieler[] = $a;
-    		foreach ($entities as $k=>$e) {
-					if (sizeof($spieler) > 1) {
-						if (!in_array($e->getYou(),$spieler) || !in_array($e->getEnemy(),$spieler))
-							unset($entities[$k]);
-					} else {
-						if (!in_array($e->getYou(),$spieler) && !in_array($e->getEnemy(),$spieler))
 							unset($entities[$k]);
 					}   			
     		}

@@ -10,7 +10,9 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class SpielFilterType extends AbstractType
 {
-        /**
+	
+		protected $em;
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -19,9 +21,12 @@ class SpielFilterType extends AbstractType
     		$date = new \DateTime();
     	
         $builder
-            ->add('year','integer',array('required' => false,))
+            ->add('year','choice', array(
+            		'expanded' => true,
+            		'multiple' => true,
+            		'choices' => $this->getYearConstants()))
             ->add('volk','entity',array(
-        			'multiple' => false,
+        			'multiple' => true,
             	'expanded' => true,
             	'required' => false,
             	'class' => 'BinaerpilotenLigaBundle:Volk',
@@ -29,17 +34,8 @@ class SpielFilterType extends AbstractType
         						return $er->createQueryBuilder('pp');
         					},
         			))
-        		->add('volk2','entity',array(
-        			'multiple' => false,
-        			'expanded' => true,
-        			'required' => false,
-        			'class' => 'BinaerpilotenLigaBundle:Volk',
-        			'query_builder' => function(EntityRepository $er) {
-        						return $er->createQueryBuilder('pp');
-        					},
-        			))        			
         		->add('spieler','entity',array(
-        			'multiple' => false,
+        			'multiple' => true,
             	'expanded' => true,
             	'required' => false,
             	'class' => 'BinaerpilotenLigaBundle:User',
@@ -47,15 +43,7 @@ class SpielFilterType extends AbstractType
         						return $er->createQueryBuilder('pp');
         					},
         			))
-        			->add('spieler2','entity',array(
-        					'multiple' => false,
-        					'expanded' => true,
-        					'required' => false,
-        					'class' => 'BinaerpilotenLigaBundle:User',
-        					'query_builder' => function(EntityRepository $er) {
-        						return $er->createQueryBuilder('pp');
-        					},
-        			))        			
+      			
         ;
     }
     
@@ -75,5 +63,26 @@ class SpielFilterType extends AbstractType
     public function getName()
     {
         return 'binaerpiloten_ligabundle_filter';
+    }
+    
+    public function __construct($em){
+    	$this->em = $em;
+    }
+    
+    public function getYearConstants() {
+    	$qyear = $this->em->createQuery("SELECT DISTINCT s.datum " .
+    			"FROM Binaerpiloten\LigaBundle\Entity\Spiel s ");
+    	 
+    	$entities = $qyear->getResult();
+    	$ret = array();
+    	
+    	foreach ($entities as $e) {
+    		$in = $e['datum']->format('Y');
+    		$ret[$in] = $in;
+    	}
+    	
+    	krsort($ret);
+    	
+    	return $ret;
     }
 }

@@ -29,28 +29,14 @@ class SpielFilter
     private $year;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Volk", inversedBy="filter")
-     * @ORM\JoinColumn(name="volk_id", referencedColumnName="id", nullable=true)
+     * @ORM\ManyToMany(targetEntity="Volk")
      */
     protected $volk;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Volk", inversedBy="filter")
-     * @ORM\JoinColumn(name="volk2_id", referencedColumnName="id", nullable=true)
-     */
-    protected $volk2;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="filter")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * @ORM\ManyToMany(targetEntity="User")
      */
     protected $spieler;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="filter")
-     * @ORM\JoinColumn(name="user2_id", referencedColumnName="id", nullable=true)
-     */
-    protected $spieler2;
     
     /**
      * Get id
@@ -132,48 +118,57 @@ class SpielFilter
     }
 
     /**
-     * Set spieler2
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->spieler = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->volk = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add spieler
      *
-     * @param \Binaerpiloten\LigaBundle\Entity\User $spieler2
+     * @param \Binaerpiloten\LigaBundle\Entity\User $spieler
      * @return SpielFilter
      */
-    public function setSpieler2(\Binaerpiloten\LigaBundle\Entity\User $spieler2 = null)
+    public function addSpieler(\Binaerpiloten\LigaBundle\Entity\User $spieler)
     {
-        $this->spieler2 = $spieler2;
+        $this->spieler[] = $spieler;
 
         return $this;
     }
 
     /**
-     * Get spieler2
+     * Remove spieler
      *
-     * @return \Binaerpiloten\LigaBundle\Entity\User 
+     * @param \Binaerpiloten\LigaBundle\Entity\User $spieler
      */
-    public function getSpieler2()
+    public function removeSpieler(\Binaerpiloten\LigaBundle\Entity\User $spieler)
     {
-        return $this->spieler2;
+        $this->spieler->removeElement($spieler);
     }
 
     /**
-     * Set volk2
+     * Add volk
      *
-     * @param \Binaerpiloten\LigaBundle\Entity\Volk $volk2
+     * @param \Binaerpiloten\LigaBundle\Entity\Volk $volk
      * @return SpielFilter
      */
-    public function setVolk2(\Binaerpiloten\LigaBundle\Entity\Volk $volk2 = null)
+    public function addVolk(\Binaerpiloten\LigaBundle\Entity\Volk $volk)
     {
-        $this->volk2 = $volk2;
+        $this->volk[] = $volk;
 
         return $this;
     }
 
     /**
-     * Get volk2
+     * Remove volk
      *
-     * @return \Binaerpiloten\LigaBundle\Entity\Volk 
+     * @param \Binaerpiloten\LigaBundle\Entity\Volk $volk
      */
-    public function getVolk2()
+    public function removeVolk(\Binaerpiloten\LigaBundle\Entity\Volk $volk)
     {
-        return $this->volk2;
+        $this->volk->removeElement($volk);
     }
 }
