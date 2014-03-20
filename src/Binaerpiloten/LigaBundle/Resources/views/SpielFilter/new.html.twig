@@ -27,23 +27,21 @@
 		</div>
 		
 		<div class="col-md-6">
-			<div class="well">
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#spieler" data-toggle="tab">Spieler</a></li>
-					<li><a href="#volk" data-toggle="tab">Volk</a></li>
-					<li><a href="#year" data-toggle="tab">Jahr</a></li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active" id="spieler">
-						{{ form_widget(form.spieler) }}
-					</div>
-					<div class="tab-pane" id="volk">	
-						{{ form_widget(form.volk) }}
-					</div>
-					<div class="tab-pane" id="year">
-						{{ form_widget(form.year) }}
-					</div>	
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#spieler" data-toggle="tab">Spieler</a></li>
+				<li><a href="#volk" data-toggle="tab">Volk</a></li>
+				<li><a href="#year" data-toggle="tab">Jahr</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="spieler">
+					{{ form_widget(form.spieler) }}
 				</div>
+				<div class="tab-pane" id="volk">	
+					{{ form_widget(form.volk) }}
+				</div>
+				<div class="tab-pane" id="year">
+					{{ form_widget(form.year) }}
+				</div>	
 			</div>
 		</div>
 	</div>

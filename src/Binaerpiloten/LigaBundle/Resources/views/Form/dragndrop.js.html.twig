@@ -1,37 +1,46 @@
 <script type="text/javascript">
 $(function  () {
+	$("ol.target").sortable({
+	  group: 'simple_with_animation',
+	  pullPlaceholder: false,
+	  // animation on drop
+	  onDrop: function  (item, targetContainer, _super) {
+	    var clonedItem = $('<li/>').css({height: 0})
+	    item.before(clonedItem)
+	    clonedItem.animate({'height': item.height()})
+	    
+	    item.animate(clonedItem.position(), function  () {
+	      clonedItem.detach()
+	      _super(item)
+	      if(item.parent().attr('class') == 'target list-group') {
+			      item.find('input').attr('checked',true)
+	      } else {
+	    	 	  item.find('input').attr('checked',false)
+	          }
+	    })
+	  }
+	})
+})
 
-$("ol.target").sortable({
-  group: 'simple_with_animation',
-  pullPlaceholder: false,
-  // animation on drop
-  onDrop: function  (item, targetContainer, _super) {
-    var clonedItem = $('<li/>').css({height: 0})
-    item.before(clonedItem)
-    clonedItem.animate({'height': item.height()})
-    
-    item.animate(clonedItem.position(), function  () {
-      clonedItem.detach()
-      _super(item)
-      if(item.parent().attr('class') == 'target list-group') {
-		      item.find('input').attr('checked',true)
-      } else {
-    	 	  item.find('input').attr('checked',false)
-          }
-    })
-  }
-})
-})
+$( document ).ready(function () {
+	var lis = $('input[type="checkbox"]').get();
+	lis.forEach(function(entry) {
+			entry.checked = false;
+		});
+});
 </script>
 
 <style type="text/css">
+
+ol * input[type='checkbox'] {
+	display: none;
+}
+
 ol.target li.placeholder {
 	position: relative;
-  /** More li styles **/
  }
 ol.target li.placeholder:before {
-	position: absolute;\n
-	/** Define arrowhead **/
+	position: absolute;
 }
 </style>
 
