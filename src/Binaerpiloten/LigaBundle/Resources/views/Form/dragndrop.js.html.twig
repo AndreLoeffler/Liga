@@ -4,7 +4,6 @@ $(function  () {
 $("ol.target").sortable({
   group: 'simple_with_animation',
   pullPlaceholder: false,
-  drag: false,
   // animation on drop
   onDrop: function  (item, targetContainer, _super) {
     var clonedItem = $('<li/>').css({height: 0})
@@ -14,6 +13,11 @@ $("ol.target").sortable({
     item.animate(clonedItem.position(), function  () {
       clonedItem.detach()
       _super(item)
+      if(item.parent().attr('class') == 'target list-group') {
+		      item.find('input').attr('checked',true)
+      } else {
+    	 	  item.find('input').attr('checked',false)
+          }
     })
   }
 })

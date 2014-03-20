@@ -20,12 +20,10 @@ class DragDropJSExtension extends \Twig_Extension {
     	$ret .= "	$('".$element."').sortable({\n";
     	$ret .= "		group: '".$group."',\n";
     	$ret .= "		pullPlaceholder: false,\n";
-    	$ret .= "		drop: false,\n";
-    	$ret .= "		onDragStart: function (\$item, container, _super) {\n";
-    	$ret .= "			var offset = \$item.offset(),\n";
-    	$ret .= "			pointer = container.rootGroup.pointer\n";
-    	$ret .= "			_super(\$item, container)\n";
-    	$ret .= "		}\n";
+    	$ret .= "		onDragStart: function (item, container, _super) {\n";
+   		$ret .= "		if(!container.options.drop) item.clone().insertAfter(item)\n";
+    	$ret .= "		_super(item)\n";
+  		$ret .= "		}\n";
     	$ret .= "	})\n";
     	$ret .= "})";
     	
