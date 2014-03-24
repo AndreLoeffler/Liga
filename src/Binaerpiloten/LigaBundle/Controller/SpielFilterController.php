@@ -79,8 +79,6 @@ class SpielFilterController extends Controller
         );
     }
 
-    /* ================== Helpers go here ==================== */
-    
     /**
      * Displays list of matches filtered by Filter-object.
      */
@@ -125,6 +123,16 @@ class SpielFilterController extends Controller
     			$parameters[':you'] = $spieler[0];
     			$parameters[':enemy'] = $spieler[1];
     		}
+    	}
+    	
+    	if ($filter->getMission() != null) {
+    		$missions = $filter->getMission();
+    		$missionstring = "(s.mission = ".$missions[0]->getId().")";
+    		unset($missions[0]);
+    		foreach ($missions as $m) {
+    			$missionstring .= " or (s.mission = ".$m->getId().")";
+    		}
+    		$query->andWhere($missionstring);
     	}
     	
     	$query->setParameters($parameters);
