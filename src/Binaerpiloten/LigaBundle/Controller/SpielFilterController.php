@@ -93,13 +93,7 @@ class SpielFilterController extends Controller
     	
     	if ($filter->getYear() != null) {
     		$year = $filter->getYear();
-    		
-    		$query->andWhere($query->expr()->between('s.datum',':from0',':to0'));
-    		$parameters[':from0'] = new \DateTime($year[0].'-01-01');
-    		$parameters[':to0'] = new \DateTime($year[0].'-12-31');
-    		unset($year[0]);
-    		foreach ($year as $key=>$y) {
-    			$k = $key+1;
+    		foreach ($year as $k=>$y) {
     			$query->orWhere($query->expr()->between('s.datum',':from'.$k,':to'.$k));
     			$parameters[':from'.$k] = new \DateTime($y.'-01-01');
     			$parameters[':to'.$k] = new \DateTime($y.'-12-31');
@@ -120,8 +114,7 @@ class SpielFilterController extends Controller
     			$parameters[':you'] = $spieler[0];
     		}
     		if (sizeof($spieler) > 1) {
-    			$query->andWhere('s.you = :you and s.enemy = :enemy');
-    			$query->orWhere('s.enemy = :you and s.you = :enemy');
+    			$query->andWhere('(s.you = :you and s.enemy = :enemy) or (s.enemy = :you and s.you = :enemy)');
     			$parameters[':you'] = $spieler[0];
     			$parameters[':enemy'] = $spieler[1];
     		}
