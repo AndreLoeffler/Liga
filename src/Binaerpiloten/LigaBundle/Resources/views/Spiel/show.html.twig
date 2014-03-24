@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Spiel</h1>
 
-    <table class="record_properties">
+    <table class="table table-bordered">
         <tbody>
             <tr>
                 <th>Datum</th>
@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <th>Mission</th>
-                <td>{{ entity.mission }}</td>
+                <td>{{ entity.mission.name }}</td>
             </tr>
             <tr>
                 <th>Spieler</th><th>Punkte</th>

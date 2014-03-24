@@ -17,6 +17,7 @@ class SpielType extends AbstractType
 	
 		private $you;
 		private $enemy;
+		private $em;
 		
 		// constant = submitValue
 		const Kreuzzug = "Kreuzzug";
@@ -35,8 +36,12 @@ class SpielType extends AbstractType
     {
         $builder
             ->add('datum','date',array('data' => new \DateTime()))
-            ->add('mission', 'choice', array(
-            		'choices' => $this->getMissionConstants()))
+            ->add('mission','entity', array(
+            	'class' => 'BinaerpilotenLigaBundle:Mission',
+            	'query_builder' => function(EntityRepository $er) {
+                return $er->createQueryBuilder('pp');
+              },)
+            )
             ->add('youpunkte')
             ->add('enemypunkte')
             ->add('youarmee','entity', array(
@@ -74,20 +79,24 @@ class SpielType extends AbstractType
         return 'binaerpiloten_ligabundle_spiel';
     }
     
-    public function __construct($y,$e){
+    public function __construct($em,$y,$e){
+    	$this->em = $em;
     	$this->you = $y;
     	$this->enemy = $e;
     }
 /* ========================== Helper functions go here! ================================= */
     public function getMissionConstants() {
-    	return array(
-    			//constant => label
-    			self::Kreuzzug => 'Kreuzzug',
-    			self::Vernichtung => 'Töte den Alien',
-    			self::GroßeKannonen => 'Große Kanonen ruhen nie',
-    			self::Reinigung => 'Die Reinigung',
-    			self::WilleDesImperators => 'Der Wille des Imperators',
-    			self::Relikt => 'Das Relikt',
-    	);
+    	$qmission = $this->em->createQuery("SELECT m " .
+    			"FROM Binaerpiloten\LigaBundle\Entity\Mission m ");
+    	 
+    	$entities = $qmission->getResult();
+    	$ret = array();
+    	
+    	foreach ($entities as $e) {
+    		$in = $e->getName();
+    		$ret[$in] = $in;
+    	}
+    	
+    	return $ret;
     }
 }

@@ -108,6 +108,8 @@ class SpielController extends Controller
         			$entity->getEnemyarmee()->tied();
         			$entity->getYouarmee()->tied();
         		}
+        		$entity->setYouvolk($entity->getYouarmee()->getVolk());
+        		$entity->setEnemyvolk($entity->getEnemyarmee()->getVolk());
             $em->persist($entity);
             $em->flush();
 
@@ -129,7 +131,7 @@ class SpielController extends Controller
     */
     private function createCreateForm(Spiel $entity, User $you, User $enemy)
     {
-        $form = $this->createForm(new SpielType($you,$enemy), $entity, array(
+        $form = $this->createForm(new SpielType($this->getDoctrine()->getManager(), $you, $enemy), $entity, array(
             'action' => $this->generateUrl('spiel_create', array('name' => $enemy->getUsername())),
             'method' => 'POST',
         ));

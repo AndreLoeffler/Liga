@@ -44,11 +44,25 @@ class Spiel
 		private $enemy;
 		
 		/**
-		 * @var String
+		 * @var User
 		 *
-		 * @ORM\Column(name="Mission", type="string")
+		 * @ORM\ManyToOne(targetEntity="Volk", inversedBy="id")
 		 */
+		private $youvolk;
 		
+		/**
+		 * @var User
+		 *
+		 * @ORM\ManyToOne(targetEntity="Volk", inversedBy="id")
+		 */
+		private $enemyvolk;
+
+		
+		/**
+		 * @var Mission
+		 *
+		 * @ORM\ManyToOne(targetEntity="Mission", inversedBy="id")
+		 */
 		private $mission;
 		
 		/**
@@ -323,5 +337,51 @@ class Spiel
     public function getYouarmee()
     {
         return $this->youarmee;
+    }
+
+    /**
+     * Set youvolk
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\Volk $youvolk
+     * @return Spiel
+     */
+    public function setYouvolk(\Binaerpiloten\LigaBundle\Entity\Volk $youvolk = null)
+    {
+        $this->youvolk = $youvolk;
+
+        return $this;
+    }
+
+    /**
+     * Get youvolk
+     *
+     * @return \Binaerpiloten\LigaBundle\Entity\Volk 
+     */
+    public function getYouvolk()
+    {
+        return $this->youvolk;
+    }
+
+    /**
+     * Set enemyvolk
+     *
+     * @param \Binaerpiloten\LigaBundle\Entity\Volk $enemyvolk
+     * @return Spiel
+     */
+    public function setEnemyvolk(\Binaerpiloten\LigaBundle\Entity\Volk $enemyvolk = null)
+    {
+        $this->enemyvolk = $enemyvolk;
+
+        return $this;
+    }
+
+    /**
+     * Get enemyvolk
+     *
+     * @return \Binaerpiloten\LigaBundle\Entity\Volk 
+     */
+    public function getEnemyvolk()
+    {
+        return $this->enemyvolk;
     }
 }

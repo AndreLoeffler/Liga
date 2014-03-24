@@ -9,10 +9,9 @@
                 <th>Datum</th>
                 <th>Mission</th>
                 <th>Spieler 1</th>
-                <th>Youpunkte</th>
                 <th>Youarmee</th>
+                <th>yP - eP</th>
                 <th>Spieler 2</th>
-                <th>Enemypunkte</th>
                 <th>Enemyarmee</th>
             </tr>
         </thead>
@@ -20,13 +19,12 @@
         {% for entity in entities %}
             <tr>
                 <td>{% if entity.datum %}{{ entity.datum|date('d.m.Y') }}{% endif %}</td>
-                <td><a href="{{ path('spiel_show', { 'id': entity.id }) }}">{{ entity.mission }}</a></td>
+                <td><a href="{{ path('spiel_show', { 'id': entity.id }) }}">{{ entity.mission.name }}</a></td>
                 <td>{{ entity.you.username }}</td>
-                <td>{{ entity.youpunkte }}</td>
-                <td>{{ entity.youarmee.name }}</td>
+                <td>{{ entity.youarmee.name }}<br>({{ entity.youvolk.name }})</td>
+                <td>{{ entity.youpunkte }} - {{ entity.enemypunkte }}</td>
                 <td>{{ entity.enemy.username }}</td>
-                <td>{{ entity.enemypunkte }}</td>
-                <td>{{ entity.enemyarmee.name }}</td>
+                <td>{{ entity.enemyarmee.name }}<br>({{ entity.enemyvolk.name }})</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -103,6 +103,13 @@ class SpielFilterController extends Controller
     	if ($filter->getVolk() != null) {
     		$voelker = $filter->getVolk()->toArray();
     		if (sizeof($voelker) == 1) {
+    			$query->andWhere('s.youvolk = :youvolk or s.enemyvolk = :youvolk');
+    			$parameters[':youvolk'] = $voelker[0];
+    		}
+    		if (sizeof($voelker) > 1) {
+    			$query->andWhere('(s.youvolk = :youvolk and s.enemyvolk = :enemyvolk) or (s.enemyvolk = :youvolk and s.youvolk = :enemyvolk)');
+    			$parameters[':youvolk'] = $voelker[0];
+    			$parameters[':enemyvolk'] = $voelker[1];
     		}
     	}
     	
@@ -122,21 +129,7 @@ class SpielFilterController extends Controller
     	
     	$query->setParameters($parameters);
     	$entities = $query->getQuery()->getResult();
-    	
-    	
-      if ($filter->getVolk() != null) {
-    		$voelker = $filter->getVolk()->toArray();
-    		foreach ($entities as $k=>$e) {
-					if (sizeof($voelker) > 1) {
-						if (!in_array($e->getYouarmee()->getVolk(),$voelker) || !in_array($e->getEnemyarmee()->getVolk(),$voelker))
-							unset($entities[$k]);
-					} else if (sizeof($voelker) == 1) {
-						if (!in_array($e->getYouarmee()->getVolk(),$voelker) && !in_array($e->getEnemyarmee()->getVolk(),$voelker))
-							unset($entities[$k]);
-					}   			
-    		}
-    	}
-    	
+  	
     	return $this->render('BinaerpilotenLigaBundle:Spiel:index.html.twig',
     			array('entities' => $entities)
     	);

@@ -21,3 +21,7 @@ volk:
 spielfilter:
     resource: "@BinaerpilotenLigaBundle/Controller/SpielFilterController.php"
     type: annotation    
+    
+mission:
+    resource: "@BinaerpilotenLigaBundle/Controller/MissionController.php"
+    type: annotation    

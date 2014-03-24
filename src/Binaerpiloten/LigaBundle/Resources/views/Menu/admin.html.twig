@@ -2,8 +2,7 @@
 	<div class="btn-group primary">
 		<button type="button" class="btn dropdown-toggle"
 			data-toggle="dropdown">
-			<span class="glyphicon glyphicon-chevron-left"></span> 
-			Admin
+			<span class="glyphicon glyphicon-chevron-left"></span> Admin
 		</button>
 		<ul class="dropdown-menu pull-right" role="menu">
 			<li>
@@ -16,6 +15,19 @@
 						<li><a href="{{ path('volk') }}">Alle Völker</a></li>
 						<li class="divider"></li>
 						<li><a href="{{ path('volk_new') }}">Neues Volk</a></li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="btn-group secondary">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						Missionen
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="{{ path('mission') }}">Alle Missionen</a></li>
+						<li class="divider"></li>
+						<li><a href="{{ path('mission_new') }}">Neue Mission</a></li>
 					</ul>
 				</div>
 			</li>
